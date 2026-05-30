@@ -1439,7 +1439,11 @@ function renderStats(){
     <div class="card">
       <h3 style="margin-top:0">Inställningar</h3>
       <p class="muted">All data sparas lokalt i din webbläsare.</p>
-      <button class="btn btn-danger" onclick="resetAll()">🗑️ Nollställ all framgång</button>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <button class="btn btn-ghost" onclick="resetQuestions()">🔄 Börja om med alla frågorna</button>
+        <button class="btn btn-danger" onclick="resetAll()">🗑️ Nollställ allt (även bokmärken & prov)</button>
+      </div>
+      <p class="muted" style="font-size:.85rem;margin:12px 0 0">"Börja om med alla frågorna" nollställer din övningsprogress så att du kan köra alla frågor från början – bokmärken och provhistorik behålls.</p>
     </div>`;
   const sa = c.querySelector("#saBody");
   AREAS.forEach(a => {
@@ -1461,6 +1465,10 @@ function renderStats(){
       </div>`));
     });
   }
+}
+function resetQuestions(){
+  if(!confirm("Vill du börja om med alla frågorna? All din övningsprogress och områdesbehärskning nollställs, men bokmärken och provhistorik behålls. Detta går inte att ångra.")) return;
+  DB.svar = {}; saveDB(); toast("Du börjar om från början 🔄"); renderStats();
 }
 function resetAll(){
   if(!confirm("Vill du nollställa all din framgång, bokmärken och provhistorik? Detta går inte att ångra.")) return;
