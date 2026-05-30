@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Körkortskollen – öva inför Trafikverkets teoriprov för B-körkort. Lektioner, vägmärken, övningsfrågor och provläge med tidtagning.">
+<meta name="theme-color" content="#2563eb">
+<title>Körkortskollen – Teori för B-körkort</title>
+<style>
+/* ============================================================
+   DESIGNTOKENS
+   ============================================================ */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: #e7effe;
+  --accent: #06b6d4;
+  --success: #15803d;
+  --success-soft: #dcfce7;
+  --danger: #dc2626;
+  --danger-soft: #fee2e2;
+  --warning: #b45309;
+  --warning-soft: #fef3c7;
+
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --text: #0f172a;
+  --muted: #5b6677;
+  --border: #e2e8f0;
+  --ring: rgba(37,99,235,.35);
+  --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
+  --shadow-lg: 0 12px 40px rgba(15,23,42,.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --maxw: 1080px;
+  --hero-grad: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #5b8def;
+    --primary-dark: #7aa4f5;
+    --primary-soft: #1b2a4a;
+    --accent: #22d3ee;
+    --success: #4ade80;
+    --success-soft: #14331f;
+    --danger: #f87171;
+    --danger-soft: #3a1717;
+    --warning: #fbbf24;
+    --warning-soft: #3a2d0a;
+    --bg: #0b1120;
+    --surface: #131c2e;
+    --surface-2: #1a2438;
+    --text: #e8edf6;
+    --muted: #9aa7bd;
+    --border: #28324a;
+    --ring: rgba(91,141,239,.45);
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.5);
+    --hero-grad: linear-gradient(135deg, #1e40af 0%, #0e7490 100%);
+  }
+}
+:root[data-theme="dark"] {
+  --primary: #5b8def;
+  --primary-dark: #7aa4f5;
+  --primary-soft: #1b2a4a;
+  --accent: #22d3ee;
+  --success: #4ade80;
+  --success-soft: #14331f;
+  --danger: #f87171;
+  --danger-soft: #3a1717;
+  --warning: #fbbf24;
+  --warning-soft: #3a2d0a;
+  --bg: #0b1120;
+  --surface: #131c2e;
+  --surface-2: #1a2438;
+  --text: #e8edf6;
+  --muted: #9aa7bd;
+  --border: #28324a;
+  --ring: rgba(91,141,239,.45);
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.5);
+  --hero-grad: linear-gradient(135deg, #1e40af 0%, #0e7490 100%);
+}
+
+/* ============================================================
+   BAS
+   ============================================================ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { line-height: 1.25; margin: 0 0 .4em; color: var(--text); }
+h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+a { color: var(--primary); }
+ul { margin: 0 0 1em; padding-left: 1.2em; }
+li { margin-bottom: .35em; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+.view { display: none; padding: 26px 0 110px; }
+.view.active { display: block; animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ============================================================
+   TOPPMENY
+   ============================================================ */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar .wrap { display: flex; align-items: center; gap: 14px; height: 62px; }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; white-space: nowrap; cursor: pointer; background: none; border: 0; color: var(--text); padding: 0; }
+.brand .logo { width: 34px; height: 34px; display: grid; place-items: center; background: var(--hero-grad); border-radius: 9px; color: #fff; font-size: 1.1rem; }
+.topnav { display: flex; gap: 2px; margin-left: auto; flex-wrap: wrap; }
+.topnav button {
+  border: 0; background: none; color: var(--muted); font: inherit; font-size: .98rem; font-weight: 600;
+  padding: 8px 13px; border-radius: 10px; cursor: pointer; transition: background .15s, color .15s;
+}
+.topnav button:hover { background: var(--surface-2); color: var(--text); }
+.topnav button.active { background: var(--primary-soft); color: var(--primary-dark); }
+.theme-btn {
+  margin-left: 4px; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  width: 42px; height: 42px; border-radius: 11px; cursor: pointer; font-size: 1.2rem; display: grid; place-items: center;
+}
+.theme-btn:hover { background: var(--surface-2); }
+@media (max-width: 860px) { .topnav { display: none; } }
+
+/* ============================================================
+   BOTTENMENY (mobil)
+   ============================================================ */
+.bottomnav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 60; display: none;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.bottomnav .row { display: flex; max-width: 560px; margin: 0 auto; }
+.bottomnav button {
+  flex: 1; border: 0; background: none; color: var(--muted); font: inherit; font-size: .68rem; font-weight: 600;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px; border-radius: 10px; cursor: pointer; min-height: 52px;
+}
+.bottomnav button .ic { font-size: 1.3rem; line-height: 1; }
+.bottomnav button.active { color: var(--primary); }
+@media (max-width: 860px) { .bottomnav { display: block; } }
+
+/* ============================================================
+   KNAPPAR
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: inherit; font-weight: 700; cursor: pointer; border: 1px solid transparent;
+  padding: 12px 20px; border-radius: 12px; min-height: 48px; text-decoration: none;
+  transition: transform .08s, background .15s, box-shadow .15s; user-select: none;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 6px 16px var(--ring); }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
+.btn-soft:hover { filter: brightness(.97); }
+.btn-danger { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+.btn-block { width: 100%; }
+.btn-lg { padding: 15px 26px; font-size: 1.06rem; min-height: 56px; }
+.btn-sm { padding: 8px 14px; min-height: 40px; font-size: .92rem; border-radius: 10px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* ============================================================
+   KORT & LAYOUT
+   ============================================================ */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+.grid { display: grid; gap: 16px; }
+.grid-areas { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+.muted { color: var(--muted); }
+.lead { font-size: 1.1rem; color: var(--muted); max-width: 60ch; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 700; padding: 4px 11px; border-radius: 999px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+.chip.area { background: var(--primary-soft); color: var(--primary-dark); border-color: transparent; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--primary); font: inherit; font-weight: 700; cursor: pointer; padding: 6px 0; margin-bottom: 6px; }
+
+/* ============================================================
+   HERO / STARTSIDA
+   ============================================================ */
+.hero { background: var(--hero-grad); color: #fff; border-radius: 22px; padding: 30px; display: flex; gap: 26px; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-lg); }
+.hero h1 { color: #fff; margin-bottom: .25em; }
+.hero p { color: rgba(255,255,255,.92); margin-bottom: 1.1em; max-width: 46ch; }
+.hero .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero .btn-primary { background: #fff; color: var(--primary-dark); box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+.hero .btn-ghost { background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.45); }
+.hero-info { flex: 1 1 320px; }
+.hero-ring { flex: 0 0 auto; display: grid; place-items: center; }
+.ring { position: relative; width: 168px; height: 168px; }
+.ring svg { transform: rotate(-90deg); }
+.ring .ring-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.ring .ring-num { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.ring .ring-sub { font-size: .82rem; opacity: .9; }
+
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin: 18px 0 6px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stat .n { font-size: 1.7rem; font-weight: 800; }
+.stat .l { font-size: .85rem; color: var(--muted); }
+
+/* OMRÅDESKORT */
+.area-card { text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; cursor: pointer; display: flex; flex-direction: column; gap: 10px; transition: transform .1s, box-shadow .15s, border-color .15s; }
+.area-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
+.area-ic { width: 50px; height: 50px; border-radius: 13px; display: grid; place-items: center; font-size: 1.6rem; color: #fff; }
+.area-card h3 { margin: 0; }
+.area-card .desc { font-size: .92rem; color: var(--muted); margin: 0; flex: 1; }
+.bar { height: 9px; background: var(--surface-2); border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+.bar > span { display: block; height: 100%; background: var(--primary); border-radius: 999px; transition: width .5s ease; }
+.bar.ok > span { background: var(--success); }
+.barline { display: flex; align-items: center; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-bottom: 5px; }
+
+/* ============================================================
+   LEKTIONER
+   ============================================================ */
+.lesson { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+.lesson-head { display: flex; gap: 16px; align-items: center; padding: 18px 20px; }
+.lesson-illu { flex: 0 0 auto; width: 84px; height: 84px; border-radius: 14px; background: var(--surface-2); display: grid; place-items: center; border: 1px solid var(--border); }
+.lesson-illu svg { width: 60px; height: 60px; }
+.lesson-body { padding: 0 20px 20px; }
+.lesson-body h4 { margin-top: 1.1em; color: var(--primary-dark); }
+.callout { background: var(--primary-soft); border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 10px; margin: 14px 0; }
+.callout.warn { background: var(--warning-soft); border-left-color: var(--warning); }
+.factgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; margin: 14px 0; }
+.factgrid .f { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+.factgrid .f b { display: block; font-size: 1.35rem; color: var(--primary-dark); }
+.factgrid .f span { font-size: .85rem; color: var(--muted); }
+
+/* ============================================================
+   VÄGMÄRKEN
+   ============================================================ */
+.sign-cat { margin-bottom: 26px; }
+.sign-cat h3 { display: flex; align-items: center; gap: 8px; }
+.sign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 14px; }
+.sign-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 12px; text-align: center; box-shadow: var(--shadow); }
+.sign-card .svgbox { height: 96px; display: grid; place-items: center; }
+.sign-card .svgbox svg { width: 86px; height: 86px; }
+.sign-card .nm { font-weight: 700; font-size: .92rem; margin-top: 8px; }
+.sign-card .ds { font-size: .8rem; color: var(--muted); margin-top: 3px; }
+
+/* ============================================================
+   FRÅGOR / ÖVNING
+   ============================================================ */
+.q-card { max-width: 760px; margin: 0 auto; }
+.q-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.q-progress { flex: 1; }
+.q-progress .bar { height: 8px; }
+.q-count { font-size: .85rem; color: var(--muted); white-space: nowrap; font-weight: 600; }
+.bookmark-btn { border: 1px solid var(--border); background: var(--surface); width: 46px; height: 46px; border-radius: 12px; cursor: pointer; font-size: 1.35rem; display: grid; place-items: center; color: var(--muted); }
+.bookmark-btn.on { color: #f59e0b; border-color: #f59e0b; background: var(--warning-soft); }
+.q-sign { display: grid; place-items: center; margin: 4px 0 18px; }
+.q-sign svg { width: 130px; height: 130px; }
+.q-text { font-size: 1.3rem; font-weight: 700; margin: 4px 0 20px; line-height: 1.35; }
+.options { display: grid; gap: 12px; }
+.opt {
+  display: flex; align-items: center; gap: 14px; text-align: left; width: 100%;
+  background: var(--surface); border: 2px solid var(--border); border-radius: 14px;
+  padding: 15px 17px; font: inherit; font-size: 1.05rem; cursor: pointer; color: var(--text);
+  transition: border-color .12s, background .12s;
+}
+.opt:hover:not([disabled]) { border-color: var(--primary); background: var(--primary-soft); }
+.opt .key { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 9px; background: var(--surface-2); display: grid; place-items: center; font-weight: 800; color: var(--muted); border: 1px solid var(--border); }
+.opt.correct { border-color: var(--success); background: var(--success-soft); }
+.opt.correct .key { background: var(--success); color: #fff; border-color: var(--success); }
+.opt.wrong { border-color: var(--danger); background: var(--danger-soft); }
+.opt.wrong .key { background: var(--danger); color: #fff; border-color: var(--danger); }
+.opt.chosen { border-color: var(--primary); background: var(--primary-soft); }
+.opt[disabled] { cursor: default; }
+.feedback { margin-top: 18px; border-radius: 14px; padding: 16px 18px; border: 1px solid var(--border); animation: fade .2s ease; }
+.feedback.ok { background: var(--success-soft); border-color: var(--success); }
+.feedback.no { background: var(--danger-soft); border-color: var(--danger); }
+.feedback .ft { font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.feedback.ok .ft { color: var(--success); }
+.feedback.no .ft { color: var(--danger); }
+.q-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+.q-actions .btn { flex: 1; min-width: 140px; }
+
+/* PRAKTIK-MENY */
+.mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; }
+
+/* ============================================================
+   PROVLÄGE
+   ============================================================ */
+.exam-bar { position: sticky; top: 62px; z-index: 30; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
+.timer { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
+.timer.low { color: var(--danger); }
+.exam-bar .grow { flex: 1; }
+.navigator { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px,1fr)); gap: 7px; margin-top: 10px; }
+.navigator button { aspect-ratio: 1; border: 1px solid var(--border); background: var(--surface); border-radius: 9px; font: inherit; font-weight: 700; font-size: .85rem; cursor: pointer; color: var(--muted); min-height: 0; }
+.navigator button.answered { background: var(--primary-soft); color: var(--primary-dark); border-color: transparent; }
+.navigator button.current { outline: 3px solid var(--ring); }
+
+.result-banner { border-radius: 20px; padding: 30px; text-align: center; color: #fff; margin-bottom: 22px; box-shadow: var(--shadow-lg); }
+.result-banner.pass { background: linear-gradient(135deg,#16a34a,#15803d); }
+.result-banner.fail { background: linear-gradient(135deg,#ef4444,#b91c1c); }
+.result-banner .big { font-size: 3.2rem; font-weight: 800; line-height: 1; margin: 6px 0; }
+.result-banner h2 { color: #fff; }
+
+table.tbl { width: 100%; border-collapse: collapse; }
+table.tbl th, table.tbl td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--border); }
+table.tbl th { font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+table.tbl td .bar { width: 130px; display: inline-block; vertical-align: middle; }
+
+.empty { text-align: center; color: var(--muted); padding: 50px 20px; }
+.empty .big-ic { font-size: 3rem; display: block; margin-bottom: 10px; }
+
+.review-item { border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 12px; background: var(--surface); }
+.review-item.r-ok { border-left: 5px solid var(--success); }
+.review-item.r-no { border-left: 5px solid var(--danger); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+#toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 999px; font-weight: 700; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 200; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <button class="brand" data-nav="hem" aria-label="Till startsidan">
+      <span class="logo" aria-hidden="true">🚗</span> Körkortskollen
+    </button>
+    <nav class="topnav" aria-label="Huvudmeny">
+      <button data-nav="hem">Hem</button>
+      <button data-nav="lektioner">Lektioner</button>
+      <button data-nav="vagmarken">Vägmärken</button>
+      <button data-nav="ova">Öva</button>
+      <button data-nav="prov">Provläge</button>
+      <button data-nav="bokmarken">Bokmärken</button>
+      <button data-nav="statistik">Statistik</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Byt mellan ljust och mörkt läge" title="Ljust/mörkt läge">🌙</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="view-hem" class="view" aria-label="Startsida"><div id="home-content"></div></section>
+  <section id="view-lektioner" class="view" aria-label="Lektioner"><div id="lessons-content"></div></section>
+  <section id="view-vagmarken" class="view" aria-label="Vägmärken"><div id="signs-content"></div></section>
+  <section id="view-ova" class="view" aria-label="Övning"><div id="practice-content"></div></section>
+  <section id="view-prov" class="view" aria-label="Provläge"><div id="exam-content"></div></section>
+  <section id="view-bokmarken" class="view" aria-label="Bokmärken"><div id="bookmarks-content"></div></section>
+  <section id="view-statistik" class="view" aria-label="Statistik"><div id="stats-content"></div></section>
+</main>
+
+<nav class="bottomnav" aria-label="Mobilmeny">
+  <div class="row">
+    <button data-nav="hem"><span class="ic" aria-hidden="true">🏠</span>Hem</button>
+    <button data-nav="lektioner"><span class="ic" aria-hidden="true">📖</span>Lektioner</button>
+    <button data-nav="ova"><span class="ic" aria-hidden="true">✏️</span>Öva</button>
+    <button data-nav="prov"><span class="ic" aria-hidden="true">⏱️</span>Prov</button>
+    <button data-nav="statistik"><span class="ic" aria-hidden="true">📊</span>Statistik</button>
+  </div>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   DATA: OMRÅDEN
+   ============================================================ */
+const AREAS = [
+  { id:"trafikregler",  namn:"Trafikregler",        farg:"#2563eb", ikon:"🚦", beskrivning:"Hastigheter, väjningsplikt, omkörning, parkering och korsningar." },
+  { id:"vagmarken",     namn:"Vägmärken",           farg:"#dc2626", ikon:"⛔", beskrivning:"Känn igen varnings-, förbuds-, påbuds- och anvisningsmärken." },
+  { id:"fordon",        namn:"Fordonskännedom",     farg:"#7c3aed", ikon:"🔧", beskrivning:"Däck, bromsar, belysning, last och kontroller före färd." },
+  { id:"vaglag",        namn:"Väglag & väder",      farg:"#0891b2", ikon:"🌧️", beskrivning:"Halka, vattenplaning, sikt och hur väglaget påverkar bromssträckan." },
+  { id:"risk",          namn:"Riskbeteenden",       farg:"#b45309", ikon:"⚠️", beskrivning:"Alkohol, droger, trötthet och andra risker bakom ratten." },
+  { id:"samspel",       namn:"Samspel i trafiken",  farg:"#16a34a", ikon:"🤝", beskrivning:"Oskyddade trafikanter, barn, cyklister och kommunikation." },
+  { id:"miljo",         namn:"Miljö",               farg:"#059669", ikon:"🌍", beskrivning:"Utsläpp, bränslen, katalysator och fordonets miljöpåverkan." },
+  { id:"sparsam",       namn:"Miljövänlig körning", farg:"#65a30d", ikon:"🌱", beskrivning:"Sparsam körning som sänker förbrukning, utsläpp och kostnad." }
+];
+const areaById = id => AREAS.find(a => a.id === id);
+
+/* ============================================================
+   DATA: VÄGMÄRKEN  (fylls in)
+   ============================================================ */
+const SIGNS = [
+  // ---- Väjningspliktsmärken ----
+  { id:"vajningsplikt", kategori:"vajning", namn:"Väjningsplikt", beskrivning:"Lämna företräde åt korsande trafik.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 92 L93 16 L7 16 Z" fill="#fff" stroke="#d40511" stroke-width="8" stroke-linejoin="round"/></svg>` },
+  { id:"stopp", kategori:"vajning", namn:"Stopplikt", beskrivning:"Du måste stanna helt och lämna företräde.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M33 5 H67 L95 33 V67 L67 95 H33 L5 67 V33 Z" fill="#d40511"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-weight="800" font-size="19" fill="#fff">STOPP</text></svg>` },
+  { id:"huvudled", kategori:"vajning", namn:"Huvudled", beskrivning:"Du kör på väg med företräde i korsningar.",
+    svg:`<svg viewBox="0 0 100 100"><g transform="rotate(45 50 50)"><rect x="17" y="17" width="66" height="66" fill="#fff"/><rect x="26" y="26" width="48" height="48" fill="#ffd400"/></g></svg>` },
+  { id:"huvudled-upphor", kategori:"vajning", namn:"Huvudled upphör", beskrivning:"Företrädet upphör – var beredd att väja.",
+    svg:`<svg viewBox="0 0 100 100"><g transform="rotate(45 50 50)"><rect x="17" y="17" width="66" height="66" fill="#fff"/><rect x="26" y="26" width="48" height="48" fill="#ffd400"/></g><line x1="24" y1="76" x2="76" y2="24" stroke="#444" stroke-width="6"/></svg>` },
+
+  // ---- Varningsmärken ----
+  { id:"varning-vagkorsning", kategori:"varning", namn:"Varning för korsning", beskrivning:"Korsning där högerregeln ofta gäller.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><g stroke="#111" stroke-width="8"><line x1="50" y1="34" x2="50" y2="83"/><line x1="26" y1="62" x2="74" y2="62"/></g></svg>` },
+  { id:"varning-kurva", kategori:"varning", namn:"Varning för kurva", beskrivning:"Kurva – anpassa hastigheten.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><path d="M42 85 C42 60 42 50 60 47" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round"/><path d="M52 38 L68 46 L55 57 Z" fill="#111"/></svg>` },
+  { id:"varning-rondell", kategori:"varning", namn:"Varning för cirkulation", beskrivning:"Rondell längre fram.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><circle cx="50" cy="62" r="17" fill="none" stroke="#111" stroke-width="7"/><path d="M50 41 l9 1 l-6 8 z" fill="#111"/><path d="M70 70 l-1 9 l-8 -5 z" fill="#111"/><path d="M30 70 l9 4 l-8 5 z" fill="#111"/></svg>` },
+  { id:"varning-avsmalnande", kategori:"varning", namn:"Varning för avsmalning", beskrivning:"Vägen blir smalare.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><path d="M30 85 L43 42" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/><path d="M70 85 L57 42" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/></svg>` },
+  { id:"varning-farthinder", kategori:"varning", namn:"Varning för gupp", beskrivning:"Farthinder (gupp) i vägbanan.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><path d="M22 78 L38 78 Q50 50 62 78 L78 78" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/></svg>` },
+  { id:"varning-nedfor", kategori:"varning", namn:"Brant lutning nedför", beskrivning:"Brant nedförsbacke – väx ned i tid.",
+    svg:`<svg viewBox="0 0 100 100"><path d="M50 9 L95 89 L5 89 Z" fill="#ffd400" stroke="#d40511" stroke-width="7" stroke-linejoin="round"/><line x1="26" y1="52" x2="80" y2="84" stroke="#111" stroke-width="7" stroke-linecap="round"/><text x="48" y="50" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#111">10%</text></svg>` },
+
+  // ---- Förbudsmärken ----
+  { id:"forbud-infart", kategori:"forbud", namn:"Förbud mot infart", beskrivning:"Förbjudet att köra in med fordon.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#d40511"/><rect x="22" y="43" width="56" height="14" rx="2" fill="#fff"/></svg>` },
+  { id:"forbud-fordon", kategori:"forbud", namn:"Förbud mot fordonstrafik", beskrivning:"Inga fordon får köra på vägen.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#fff" stroke="#d40511" stroke-width="9"/></svg>` },
+  { id:"hastighet-30", kategori:"forbud", namn:"Hastighet 30 km/h", beskrivning:"Högsta tillåtna hastighet 30 km/h.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#fff" stroke="#d40511" stroke-width="9"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="40" font-weight="800" fill="#111">30</text></svg>` },
+  { id:"hastighet-50", kategori:"forbud", namn:"Hastighet 50 km/h", beskrivning:"Högsta tillåtna hastighet 50 km/h.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#fff" stroke="#d40511" stroke-width="9"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="40" font-weight="800" fill="#111">50</text></svg>` },
+  { id:"hastighet-70", kategori:"forbud", namn:"Hastighet 70 km/h", beskrivning:"Högsta tillåtna hastighet 70 km/h.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#fff" stroke="#d40511" stroke-width="9"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="40" font-weight="800" fill="#111">70</text></svg>` },
+  { id:"forbud-omkorning", kategori:"forbud", namn:"Förbud mot omkörning", beskrivning:"Det är förbjudet att köra om.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#fff" stroke="#d40511" stroke-width="9"/><g><rect x="25" y="34" width="20" height="40" rx="5" fill="#d40511"/><rect x="28" y="40" width="14" height="9" rx="2" fill="#ffe"/></g><g><rect x="55" y="34" width="20" height="40" rx="5" fill="#111"/><rect x="58" y="40" width="14" height="9" rx="2" fill="#bbb"/></g></svg>` },
+  { id:"parkering-forbud", kategori:"forbud", namn:"Förbud att parkera", beskrivning:"Du får inte parkera på sträckan.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#1565c0" stroke="#d40511" stroke-width="9"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="800" fill="#fff">P</text><line x1="24" y1="76" x2="76" y2="24" stroke="#d40511" stroke-width="9"/></svg>` },
+
+  // ---- Påbudsmärken ----
+  { id:"pabud-rakt", kategori:"pabud", namn:"Påbjuden körriktning", beskrivning:"Du måste köra rakt fram.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#1565c0"/><path d="M50 24 L68 50 L57 50 L57 78 L43 78 L43 50 L32 50 Z" fill="#fff"/></svg>` },
+  { id:"cirkulationsplats", kategori:"pabud", namn:"Cirkulationsplats", beskrivning:"Kör i rondellen i pilarnas riktning.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#1565c0"/><circle cx="50" cy="52" r="20" fill="none" stroke="#fff" stroke-width="6"/><path d="M50 28 l10 2 l-7 9 z" fill="#fff"/><path d="M74 60 l-2 10 l-9 -7 z" fill="#fff"/><path d="M28 62 l11 4 l-9 7 z" fill="#fff"/></svg>` },
+  { id:"pabud-cykelbana", kategori:"pabud", namn:"Påbjuden cykelbana", beskrivning:"Bana för cykel och moped klass II.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#1565c0"/><g fill="none" stroke="#fff" stroke-width="5"><circle cx="33" cy="62" r="13"/><circle cx="67" cy="62" r="13"/><path d="M33 62 L46 42 L64 42"/><path d="M46 42 L57 62"/><path d="M67 62 L60 45"/></g><circle cx="46" cy="42" r="3" fill="#fff"/></svg>` },
+  { id:"pabud-gangbana", kategori:"pabud", namn:"Påbjuden gångbana", beskrivning:"Bana endast för gående.",
+    svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#1565c0"/><circle cx="53" cy="26" r="7" fill="#fff"/><g stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"><line x1="51" y1="33" x2="46" y2="58"/><line x1="50" y1="40" x2="62" y2="48"/><line x1="46" y1="58" x2="58" y2="74"/><line x1="46" y1="58" x2="36" y2="76"/></g></svg>` },
+
+  // ---- Anvisningsmärken ----
+  { id:"parkering", kategori:"anvisning", namn:"Parkering", beskrivning:"Här får du parkera.",
+    svg:`<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="7" fill="#1565c0"/><text x="50" y="52" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="52" font-weight="800" fill="#fff">P</text></svg>` },
+  { id:"overgangsstalle", kategori:"anvisning", namn:"Övergångsställe", beskrivning:"Här kan gående korsa vägen.",
+    svg:`<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="7" fill="#1565c0"/><circle cx="48" cy="28" r="6" fill="#fff"/><g stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"><line x1="47" y1="34" x2="43" y2="54"/><line x1="46" y1="40" x2="57" y2="46"/><line x1="43" y1="54" x2="54" y2="66"/><line x1="43" y1="54" x2="35" y2="68"/></g><g fill="#fff"><rect x="22" y="76" width="9" height="10"/><rect x="38" y="76" width="9" height="10"/><rect x="54" y="76" width="9" height="10"/><rect x="70" y="76" width="9" height="10"/></g></svg>` },
+  { id:"motorvag", kategori:"anvisning", namn:"Motorväg", beskrivning:"Motorväg börjar – särskilda regler gäller.",
+    svg:`<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="7" fill="#1565c0"/><path d="M30 84 L42 40 L40 30 L60 30 L58 40 L70 84" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><line x1="24" y1="48" x2="76" y2="48" stroke="#fff" stroke-width="6"/></svg>` },
+  { id:"gangfartsomrade", kategori:"anvisning", namn:"Gångfartsområde", beskrivning:"Kör i gångfart (max ~7 km/h), gående har företräde.",
+    svg:`<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="7" fill="#1565c0"/><circle cx="40" cy="26" r="6" fill="#fff"/><g stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"><line x1="39" y1="32" x2="36" y2="52"/><line x1="38" y1="38" x2="48" y2="44"/><line x1="36" y1="52" x2="46" y2="64"/><line x1="36" y1="52" x2="28" y2="66"/></g><circle cx="64" cy="40" r="4" fill="#fff"/><circle cx="68" cy="60" r="7" fill="none" stroke="#fff" stroke-width="3"/><rect x="22" y="80" width="56" height="6" rx="3" fill="#fff"/></svg>` }
+];
+const signById = id => SIGNS.find(s => s.id === id);
+
+/* ============================================================
+   DATA: LEKTIONER  (fylls in)
+   ============================================================ */
+const LESSONS = {
+  trafikregler: [
+    { titel:"Hastighetsgränser", illustration:`<svg viewBox="0 0 60 60"><path d="M8 38 A22 22 0 0 1 52 38" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/><line x1="30" y1="38" x2="42" y2="22" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="38" r="4" fill="#2563eb"/></svg>`,
+      html:`<p>Hastigheten ska alltid anpassas efter trafik, väg, sikt och väder – även om du håller dig under gränsen.</p>
+      <div class="factgrid">
+        <div class="f"><b>50</b><span>km/h i tättbebyggt område (om inget annat anges)</span></div>
+        <div class="f"><b>70</b><span>km/h utanför tättbebyggt (bashastighet)</span></div>
+      </div>
+      <p>Vägmärken kan höja eller sänka gränsen (30, 40, 60, 80, 100, 110, 120). Inom <b>gångfartsområde</b> får du köra högst i gångfart (ca 7 km/h) och gående har alltid företräde.</p>
+      <div class="callout warn"><b>Tänk på:</b> Lagom hastighet är den som gör att du hinner stanna inom den sträcka du ser framför dig.</div>` },
+    { titel:"Väjningsplikt & högerregeln", illustration:`<svg viewBox="0 0 60 60"><path d="M30 52 L52 12 L8 12 Z" fill="#fff" stroke="#dc2626" stroke-width="5" stroke-linejoin="round"/></svg>`,
+      html:`<p>I en korsning utan skyltar eller trafikljus gäller <b>högerregeln</b>: du ska lämna företräde åt fordon som kommer från höger.</p>
+      <ul>
+        <li><b>Väjningsplikt</b> (triangel): sänk farten och lämna företräde – du behöver inte stanna helt om det är fritt.</li>
+        <li><b>Stopplikt</b> (åttkant): du måste alltid stanna helt vid linjen innan du kör vidare.</li>
+        <li><b>Huvudled</b> (gul romb): du har företräde i korsningarna tills märket upphör.</li>
+      </ul>
+      <div class="callout"><b>Utfartsregeln:</b> När du kör ut från parkering, gård, bensinstation eller cykelbana har du alltid väjningsplikt mot all annan trafik.</div>` },
+    { titel:"Omkörning", illustration:`<svg viewBox="0 0 60 60"><rect x="10" y="30" width="14" height="24" rx="3" fill="#111"/><rect x="32" y="12" width="14" height="24" rx="3" fill="#2563eb"/></svg>`,
+      html:`<p>Omkörning sker som huvudregel till <b>vänster</b>. Försäkra dig om fri sikt och tillräckligt med utrymme innan du börjar.</p>
+      <p>Omkörning är <b>förbjuden</b> bland annat:</p>
+      <ul>
+        <li>strax före och på övergångsställen</li>
+        <li>i kurvor och vid backkrön med skymd sikt</li>
+        <li>oftast i korsningar</li>
+        <li>där det finns heldragen linje eller omkörningsförbud</li>
+      </ul>
+      <div class="callout"><b>Bra att veta:</b> Cyklister och mopeder får du i vissa lägen köra om till höger.</div>` },
+    { titel:"Stanna & parkera", illustration:`<svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="7" fill="#1565c0"/><text x="30" y="38" text-anchor="middle" font-family="sans-serif" font-size="30" font-weight="800" fill="#fff">P</text></svg>`,
+      html:`<p><b>Stanna</b> = ett kort uppehåll för att lasta/lossa eller släppa av passagerare. <b>Parkera</b> = allt annat stillastående.</p>
+      <p>Du får varken stanna eller parkera:</p>
+      <ul>
+        <li>i en korsning eller närmare än 10 meter från korsande körbana</li>
+        <li>på eller inom 10 meter före ett övergångsställe</li>
+        <li>i kurva eller på/strax före backkrön med skymd sikt</li>
+        <li>så att du hindrar andra eller skymmer vägmärken</li>
+      </ul>` }
+  ],
+  vagmarken: [
+    { titel:"Så läser du vägmärken", illustration:`<svg viewBox="0 0 60 60"><path d="M30 8 L50 44 L10 44 Z" fill="#ffd400" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/></svg>`,
+      html:`<p>Form och färg avslöjar vad ett märke betyder – även innan du läser symbolen:</p>
+      <ul>
+        <li><b>Gul triangel, röd ram</b> → varningsmärke (fara längre fram).</li>
+        <li><b>Rund med röd ram</b> → förbudsmärke (något är förbjudet).</li>
+        <li><b>Blå och rund</b> → påbudsmärke (du måste göra något).</li>
+        <li><b>Blå och fyrkantig</b> → anvisningsmärke (upplysning).</li>
+        <li><b>Triangel på spetsen / åttkant</b> → väjningsplikt / stopp.</li>
+      </ul>
+      <div class="callout">Öppna fliken <b>Vägmärken</b> i menyn för att se och plugga in alla märken med bild.</div>` },
+    { titel:"Lär dig märkena snabbare", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="#fff" stroke="#dc2626" stroke-width="5"/><text x="30" y="30" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="20" font-weight="800" fill="#111">50</text></svg>`,
+      html:`<p>Plugga några märken i taget och testa dig direkt med övningsfrågor – igenkänning fastnar bäst genom upprepning.</p>
+      <ul>
+        <li>Koppla varje märke till en verklig situation du sett under körlektionerna.</li>
+        <li>Bokmärk de märken du blandar ihop och öva extra på dem.</li>
+        <li>Tänk på att märket gäller från platsen där det sitter och framåt.</li>
+      </ul>` }
+  ],
+  fordon: [
+    { titel:"Däck & mönsterdjup", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="#222"/><circle cx="30" cy="30" r="10" fill="#9aa7bd"/><g stroke="#555" stroke-width="2"><line x1="30" y1="8" x2="30" y2="16"/><line x1="30" y1="44" x2="30" y2="52"/><line x1="8" y1="30" x2="16" y2="30"/><line x1="44" y1="30" x2="52" y2="30"/></g></svg>`,
+      html:`<p>Däcken är din enda kontakt med vägen. Rätt däck och tryck är avgörande för grepp och bromssträcka.</p>
+      <div class="factgrid">
+        <div class="f"><b>1,6 mm</b><span>minsta mönsterdjup, sommardäck</span></div>
+        <div class="f"><b>3,0 mm</b><span>minsta mönsterdjup, vinterdäck</span></div>
+      </div>
+      <p>Vinterdäck är krav <b>1 december–31 mars</b> när det är vinterväglag. Rätt lufttryck sänker bränsleförbrukningen, minskar slitaget och förbättrar väggreppet.</p>` },
+    { titel:"Bromsar & belysning", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="28" r="16" fill="#ffd400"/><rect x="25" y="42" width="10" height="8" rx="2" fill="#888"/><g stroke="#b45309" stroke-width="3" stroke-linecap="round"><line x1="30" y1="4" x2="30" y2="10"/><line x1="50" y1="14" x2="46" y2="18"/><line x1="10" y1="14" x2="14" y2="18"/></g></svg>`,
+      html:`<p><b>ABS-bromsar</b> hindrar att hjulen låser sig vid hård inbromsning, så att du kan fortsätta styra. Tryck hårt och håll kvar – pumpa inte.</p>
+      <ul>
+        <li><b>Halvljus</b> ska användas i mörker och tunnlar. <b>Helljus</b> får inte blända mötande eller framförvarande.</li>
+        <li>Kontrollera att bak-, broms- och blinkersljus fungerar.</li>
+      </ul>
+      <div class="callout warn"><b>Varningslampor:</b> Röd lampa = stanna och åtgärda (allvarligt fel). Gul/orange lampa = kontrollera snart.</div>` },
+    { titel:"Last & säkerhet i bilen", illustration:`<svg viewBox="0 0 60 60"><rect x="14" y="20" width="32" height="26" rx="3" fill="#7c3aed"/><path d="M14 30 H46 M30 20 V46" stroke="#fff" stroke-width="3"/></svg>`,
+      html:`<p>Säkra alltid lasten så att den inte kan glida eller flyga fram vid en inbromsning. Tung last placeras lågt och långt fram.</p>
+      <ul>
+        <li>Alla i bilen ska använda bilbälte – även i baksätet.</li>
+        <li>Barn ska sitta i bakåtvänd bilbarnstol så länge som möjligt (minst till ~3–4 år).</li>
+        <li>Last som skjuter ut mer än 1 meter bakom bilen ska märkas ut.</li>
+        <li>Överskrid aldrig bilens högsta tillåtna totalvikt.</li>
+      </ul>` }
+  ],
+  vaglag: [
+    { titel:"Stoppsträcka = reaktion + broms", illustration:`<svg viewBox="0 0 60 60"><rect x="30" y="24" width="22" height="14" rx="3" fill="#0891b2"/><g stroke="#0891b2" stroke-width="3" stroke-linecap="round"><line x1="6" y1="27" x2="22" y2="27"/><line x1="6" y1="34" x2="22" y2="34"/></g></svg>`,
+      html:`<p>Din <b>stoppsträcka</b> är summan av två delar:</p>
+      <div class="factgrid">
+        <div class="f"><b>Reaktionssträcka</b><span>sträckan tills du börjar bromsa (~1 sek)</span></div>
+        <div class="f"><b>Bromssträcka</b><span>sträckan från broms till stillastående</span></div>
+      </div>
+      <p>Dubblar du hastigheten blir bromssträckan ungefär <b>fyra gånger</b> så lång. Reaktionssträckan blir dubbelt så lång.</p>
+      <div class="callout"><b>3-sekundersregeln:</b> Håll minst 3 sekunder till bilen framför – välj en fast punkt och räkna.</div>` },
+    { titel:"Halka & vinterväglag", illustration:`<svg viewBox="0 0 60 60"><g stroke="#0891b2" stroke-width="3" stroke-linecap="round"><line x1="30" y1="10" x2="30" y2="50"/><line x1="13" y1="20" x2="47" y2="40"/><line x1="47" y1="20" x2="13" y2="40"/></g></svg>`,
+      html:`<p>På is och snö kan bromssträckan bli flera gånger längre än på torr väg. Halkan är som värst kring noll grader och vid s.k. "underkylt regn".</p>
+      <ul>
+        <li>Öka avståndet till bilen framför rejält.</li>
+        <li>Bromsa och styr mjukt – tvära rörelser ger sladd.</li>
+        <li>Var extra försiktig på broar och i skugga där det fryser först.</li>
+      </ul>` },
+    { titel:"Vattenplaning, dimma & sikt", illustration:`<svg viewBox="0 0 60 60"><path d="M18 26 a10 10 0 0 1 24 0 a8 8 0 0 1 -2 16 H20 a8 8 0 0 1 -2 -16" fill="#9aa7bd"/><g stroke="#0891b2" stroke-width="3" stroke-linecap="round"><line x1="22" y1="46" x2="20" y2="54"/><line x1="32" y1="46" x2="30" y2="54"/><line x1="42" y1="46" x2="40" y2="54"/></g></svg>`,
+      html:`<p><b>Vattenplaning</b> sker när däcken tappar kontakt med vägbanan och glider på en vattenfilm. Risken ökar med hög fart, mycket vatten och slitna däck.</p>
+      <ul>
+        <li>Händer det: släpp gasen, håll ratten stilla och bromsa inte hårt.</li>
+        <li>I <b>dimma</b>: använd halvljus (inte helljus, som reflekteras tillbaka) och dimljus vid behov.</li>
+        <li>Sänk farten så att du kan stanna inom den sträcka du ser.</li>
+      </ul>` }
+  ],
+  risk: [
+    { titel:"Alkohol & droger", illustration:`<svg viewBox="0 0 60 60"><path d="M22 8 h16 v10 l-4 8 v20 a4 4 0 0 1 -8 0 v-20 l-4 -8 z" fill="#b45309"/></svg>`,
+      html:`<p>Alkohol försämrar omdöme, reaktionsförmåga, syn och förmåga att bedöma avstånd – ofta innan du själv märker det.</p>
+      <div class="factgrid">
+        <div class="f"><b>0,2 ‰</b><span>gräns för rattfylleri</span></div>
+        <div class="f"><b>1,0 ‰</b><span>gräns för grovt rattfylleri</span></div>
+      </div>
+      <p>Kroppen bryter bara ned alkohol långsamt (ungefär 0,1 ‰ i timmen) – kaffe, dusch eller mat hjälper inte. För <b>narkotika gäller nolltolerans</b>.</p>` },
+    { titel:"Trötthet", illustration:`<svg viewBox="0 0 60 60"><text x="14" y="30" font-family="sans-serif" font-size="16" font-weight="800" fill="#b45309">Z</text><text x="26" y="24" font-family="sans-serif" font-size="20" font-weight="800" fill="#b45309">Z</text><text x="40" y="18" font-family="sans-serif" font-size="24" font-weight="800" fill="#b45309">Z</text></svg>`,
+      html:`<p>Trötthet är en av de vanligaste orsakerna till allvarliga olyckor. Den farligaste varianten är <b>mikrosömn</b> – några sekunders ofrivillig sömn då du kan hinna långt utan kontroll.</p>
+      <ul>
+        <li>Varningstecken: gäspningar, tunga ögonlock, missade skyltar, sicksackkörning.</li>
+        <li>Det enda som hjälper är att <b>stanna och sova</b> en stund (ev. kort tupplur).</li>
+        <li>Planera långa resor med pauser och kör helst inte mitt i natten.</li>
+      </ul>` },
+    { titel:"Andra risker: stress, mobil & medicin", illustration:`<svg viewBox="0 0 60 60"><rect x="20" y="10" width="20" height="38" rx="4" fill="#b45309"/><rect x="24" y="16" width="12" height="22" fill="#fde68a"/><circle cx="30" cy="43" r="2.5" fill="#fde68a"/></svg>`,
+      html:`<p>Allt som tar din uppmärksamhet från trafiken ökar risken.</p>
+      <ul>
+        <li><b>Mobilen</b> ska inte hållas i handen under körning – läsa eller skriva tar blicken från vägen i flera sekunder.</li>
+        <li><b>Stress och ilska</b> ger sämre omdöme och farligare beslut.</li>
+        <li>Vissa <b>mediciner</b> gör dig trött – kolla varningstriangeln på förpackningen och fråga apoteket.</li>
+      </ul>` }
+  ],
+  samspel: [
+    { titel:"Oskyddade trafikanter", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="14" r="6" fill="#16a34a"/><g stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"><line x1="30" y1="20" x2="30" y2="38"/><line x1="30" y1="26" x2="20" y2="34"/><line x1="30" y1="26" x2="40" y2="34"/><line x1="30" y1="38" x2="22" y2="52"/><line x1="30" y1="38" x2="38" y2="52"/></g></svg>`,
+      html:`<p>Fotgängare, cyklister, mopedister och motorcyklister kallas <b>oskyddade trafikanter</b> – de saknar karossens skydd och skadas lätt allvarligt.</p>
+      <ul>
+        <li>Håll låg fart och stort avstånd där du kan möta dem.</li>
+        <li>Vid <b>obevakat övergångsställe</b>: lämna gående som ska gå över företräde.</li>
+        <li>Titta extra noga innan du svänger – cyklister kommer ofta i din döda vinkel.</li>
+      </ul>` },
+    { titel:"Barn i trafiken", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="22" r="6" fill="#16a34a"/><g stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"><line x1="30" y1="28" x2="30" y2="40"/><line x1="30" y1="32" x2="23" y2="38"/><line x1="30" y1="32" x2="37" y2="38"/><line x1="30" y1="40" x2="25" y2="50"/><line x1="30" y1="40" x2="35" y2="50"/></g></svg>`,
+      html:`<p>Barn är svåra att förutse: de är korta, syns dåligt och förstår inte alltid faran. Ett barn kan springa ut i gatan utan att titta.</p>
+      <ul>
+        <li>Sänk farten vid skolor, lekplatser, busshållplatser och bostadsområden.</li>
+        <li>Räkna med det oväntade – var beredd att stanna.</li>
+        <li>Ser du en boll rulla ut? Då kan ett barn komma efter.</li>
+      </ul>` },
+    { titel:"Kommunikation & samspel", illustration:`<svg viewBox="0 0 60 60"><path d="M10 20 h26 v16 h-18 l-8 6 z" fill="#16a34a"/><path d="M50 32 h-14 v12 h10 l4 4 z" fill="#9aa7bd"/></svg>`,
+      html:`<p>Trafik fungerar för att vi förstår varandra. Visa tydligt vad du tänker göra och tolka andras signaler.</p>
+      <ul>
+        <li>Använd <b>blinkers</b> i god tid vid sväng, körfältsbyte och vid start/stopp vid kant.</li>
+        <li>Placera bilen rätt – din placering visar din avsikt.</li>
+        <li>Ögonkontakt med fotgängare och cyklister skapar säkerhet.</li>
+        <li>Kör förutsägbart och undvik plötsliga manövrar.</li>
+      </ul>` }
+  ],
+  miljo: [
+    { titel:"Bilens miljöpåverkan", illustration:`<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="20" fill="#059669"/><path d="M30 12 a18 18 0 0 0 0 36 a12 18 0 0 1 0 -36" fill="#10b981"/><circle cx="22" cy="24" r="3" fill="#bbf7d0"/></svg>`,
+      html:`<p>Vägtrafiken står för en stor del av Sveriges utsläpp av växthusgaser. Det du som förare gör spelar verklig roll.</p>
+      <ul>
+        <li><b>Koldioxid (CO₂)</b> bidrar till växthuseffekten – mängden hänger direkt ihop med bränsleförbrukningen.</li>
+        <li><b>Kväveoxider, kolväten och partiklar</b> påverkar hälsa och luftkvalitet.</li>
+        <li>Mindre bränsle = mindre utsläpp <i>och</i> lägre kostnad.</li>
+      </ul>` },
+    { titel:"Bränslen & avgasrening", illustration:`<svg viewBox="0 0 60 60"><rect x="16" y="12" width="20" height="36" rx="3" fill="#059669"/><rect x="20" y="18" width="12" height="10" fill="#bbf7d0"/><path d="M36 20 h6 v18 a3 3 0 0 0 6 0 v-12" fill="none" stroke="#059669" stroke-width="3"/></svg>`,
+      html:`<p>Olika bränslen påverkar miljön olika mycket:</p>
+      <ul>
+        <li><b>Bensin & diesel</b> är fossila och ger netto-utsläpp av CO₂.</li>
+        <li><b>Etanol (E85), biogas och el</b> ger lägre eller inga fossila utsläpp.</li>
+      </ul>
+      <p>En <b>katalysator</b> renar avgaserna, men fungerar dåligt när motorn är kall – därför är korta kallstarter extra smutsiga.</p>
+      <div class="callout"><b>Tvätta bilen rätt:</b> i biltvätt eller på spolplatta, aldrig på gatan – då rinner olja och kemikalier ut i dagvattnet.</div>` }
+  ],
+  sparsam: [
+    { titel:"Sparsam körning (Eco-driving)", illustration:`<svg viewBox="0 0 60 60"><path d="M30 50 C16 40 14 24 30 10 C46 24 44 40 30 50 Z" fill="#65a30d"/><path d="M30 14 V46" stroke="#bef264" stroke-width="2.5"/></svg>`,
+      html:`<p>Sparsam körning kan sänka förbrukningen med <b>10–20 %</b> – bra för plånboken, miljön och säkerheten.</p>
+      <ul>
+        <li><b>Växla upp tidigt</b> och kör på högsta lämpliga växel med låga varv.</li>
+        <li>Använd <b>motorbroms</b> – släpp gasen i god tid, då stryps bränsletillförseln helt.</li>
+        <li>Kör mjukt och jämnt; undvik onödiga inbromsningar och gaspådrag.</li>
+        <li>Undvik tomgång – stäng av motorn vid längre stopp (i många tätorter är max 1 minut tomgång tillåtet).</li>
+      </ul>` },
+    { titel:"Planera resan klimatsmart", illustration:`<svg viewBox="0 0 60 60"><path d="M14 46 L30 14 L46 46" fill="none" stroke="#65a30d" stroke-width="4" stroke-linejoin="round"/><circle cx="30" cy="14" r="4" fill="#65a30d"/><circle cx="14" cy="46" r="4" fill="#65a30d"/><circle cx="46" cy="46" r="4" fill="#65a30d"/></svg>`,
+      html:`<p>Hur du planerar resan påverkar förbrukningen lika mycket som hur du kör.</p>
+      <ul>
+        <li>Kontrollera <b>däcktrycket</b> regelbundet – för lågt tryck ökar förbrukningen.</li>
+        <li>Ta bort <b>takbox och takräcke</b> när de inte används – de ökar luftmotståndet.</li>
+        <li>Töm bilen på onödig vikt.</li>
+        <li>Planera rutten så att du undviker köer och slipper onödiga stopp.</li>
+        <li>Samåk eller välj cykel/kollektivt för korta resor när det går.</li>
+      </ul>` }
+  ]
+};
+
+/* ============================================================
+   DATA: FRÅGOR  (fylls in)
+   ============================================================ */
+const QUESTIONS = [
+  // ===== TRAFIKREGLER =====
+  { id:"tr1", area:"trafikregler", fraga:"Vilken är bashastigheten utanför tättbebyggt område, om inget vägmärke anger annat?", alt:["50 km/h","70 km/h","90 km/h","110 km/h"], ratt:1, forklaring:"Utanför tättbebyggt område är bashastigheten 70 km/h om inget vägmärke anger annat. Inom tättbebyggt område är den 50 km/h." },
+  { id:"tr2", area:"trafikregler", fraga:"Vilken hastighet gäller normalt inom tättbebyggt område om inget annat anges?", alt:["30 km/h","50 km/h","60 km/h","70 km/h"], ratt:1, forklaring:"Inom tättbebyggt område är grundhastigheten 50 km/h. Vägmärken kan höja eller sänka gränsen." },
+  { id:"tr3", area:"trafikregler", fraga:"Du närmar dig en korsning utan vägmärken eller signaler. Vem ska du lämna företräde åt?", alt:["Fordon som kommer från höger","Fordon som kommer från vänster","Du har alltid företräde","Den som kör fortast"], ratt:0, forklaring:"Högerregeln gäller: du ska lämna företräde åt fordon som närmar sig från höger." },
+  { id:"tr4", area:"trafikregler", fraga:"Vad innebär väjningsplikt?", alt:["Du måste alltid stanna helt","Du ska lämna företräde, men behöver inte stanna om det är fritt","Du har företräde","Du får aldrig köra vidare"], ratt:1, forklaring:"Väjningsplikt betyder att du ska lämna företräde. Är det fritt behöver du inte stanna helt – till skillnad från vid stopplikt." },
+  { id:"tr5", area:"trafikregler", fraga:"Vad måste du göra vid ett stoppmärke (stopplikt)?", alt:["Sakta ner och titta","Stanna helt vid stopplinjen","Bara stanna om det kommer fordon","Tuta och köra"], ratt:1, forklaring:"Vid stopplikt måste du alltid stanna helt vid stopplinjen, även om vägen verkar fri, innan du kör vidare." },
+  { id:"tr6", area:"trafikregler", fraga:"Du kör på en väg som är markerad som huvudled. Vad gäller i korsningarna längs vägen?", alt:["Du har väjningsplikt","Högerregeln gäller","Du har företräde","Du måste stanna i varje korsning"], ratt:2, forklaring:"På en huvudled har du företräde i korsningarna ända tills märket 'huvudled upphör' visas." },
+  { id:"tr7", area:"trafikregler", fraga:"Hur kör du normalt om ett annat fordon?", alt:["Till höger","Till vänster","Där det passar bäst","Endast på motorväg"], ratt:1, forklaring:"Huvudregeln är att omkörning sker till vänster." },
+  { id:"tr8", area:"trafikregler", fraga:"I vilket fall får du köra om till höger?", alt:["Aldrig","När fordonet framför har saktat ner eller väjt för att svänga vänster","På alla landsvägar","När du har bråttom"], ratt:1, forklaring:"Du får köra om till höger när föraren framför tydligt minskat farten eller placerat sig för att svänga vänster." },
+  { id:"tr9", area:"trafikregler", fraga:"Får du parkera 5 meter från en korsning?", alt:["Ja","Nej, du måste vara minst 10 meter från korsande körbana","Ja, om det är en kort stund","Bara på dagen"], ratt:1, forklaring:"Du får inte stanna eller parkera närmare än 10 meter från en korsande körbanas närmaste kant." },
+  { id:"tr10", area:"trafikregler", fraga:"Vad menas med att 'parkera'?", alt:["Stanna för av- och påstigning","Stanna för i- och urlastning","Ställa upp fordonet utöver av-/påstigning och i-/urlastning","Stanna vid rött ljus"], ratt:2, forklaring:"Att parkera är att ställa upp fordonet med eller utan förare, av annan anledning än för att stiga i/ur eller lasta i/ur." },
+  { id:"tr11", area:"trafikregler", fraga:"Du ska svänga vänster i en korsning. Vilka ska du lämna företräde åt?", alt:["Mötande trafik som kör rakt fram eller svänger höger","Ingen","Bara cyklister","Trafiken bakom dig"], ratt:0, forklaring:"Vid vänstersväng har du väjningsplikt mot mötande trafik som kör rakt fram eller svänger till höger." },
+  { id:"tr12", area:"trafikregler", fraga:"Du ska köra in i en cirkulationsplats med väjningspliktsmärke. Vad gäller?", alt:["Du har företräde","Du ska lämna företräde åt fordon som redan är i rondellen","Högerregeln gäller inne i rondellen","Du måste stanna helt först"], ratt:1, forklaring:"Med väjningspliktsmärke före rondellen ska du lämna företräde åt de fordon som redan kör i cirkulationen." },
+  { id:"tr13", area:"trafikregler", fraga:"När ska du ge tecken med körriktningsvisare (blinkers)?", alt:["Bara vid sväng","Vid sväng, körfältsbyte och när du startar från vägkanten","Endast i tättbebyggt område","Aldrig om vägen är tom"], ratt:1, forklaring:"Blinkers ska användas vid sväng, körfältsbyte och när du startar från en vägkant – så att andra förstår vad du tänker göra." },
+  { id:"tr14", area:"trafikregler", fraga:"Vad gäller vid ett obevakat övergångsställe?", alt:["Gående ska vänta på fordonen","Du ska lämna gående som ska gå över företräde","Du har alltid företräde","Du måste alltid stanna även om ingen finns där"], ratt:1, forklaring:"Vid obevakat övergångsställe har du väjningsplikt mot gående som gått ut på eller just ska gå ut på övergångsstället." },
+  { id:"tr15", area:"trafikregler", fraga:"Hur stort tidsavstånd bör du minst hålla till fordonet framför vid bra förhållanden?", alt:["1 sekund","3 sekunder","Det spelar ingen roll","En halv sekund"], ratt:1, forklaring:"3-sekundersregeln ger marginal att hinna reagera och bromsa. Vid halka och dåligt väder behövs ännu större avstånd." },
+  { id:"tr16", area:"trafikregler", fraga:"Vilka fordon får INTE köras på motorväg?", alt:["Personbilar","Fordon som inte kan eller får köra minst 40 km/h","Lastbilar","Bilar med släp"], ratt:1, forklaring:"På motorväg får endast fordon som kan och får köra minst 40 km/h framföras. Därför är t.ex. mopeder och traktorer förbjudna." },
+  { id:"tr17", area:"trafikregler", fraga:"Får du backa på en motorväg?", alt:["Ja, om du missat avfarten","Nej, det är aldrig tillåtet","Ja, på påfarten","Endast om vägen är tom"], ratt:1, forklaring:"Det är aldrig tillåtet att backa, vända eller stanna på en motorväg (utom vid nödstopp)." },
+  { id:"tr18", area:"trafikregler", fraga:"Vad gäller för att vända (göra en U-sväng) på motorväg?", alt:["Det är tillåtet vid avfarter","Det är förbjudet","Tillåtet om sikten är god","Tillåtet nattetid"], ratt:1, forklaring:"Det är förbjudet att vända på en motorväg – även över mittremsan." },
+  { id:"tr19", area:"trafikregler", fraga:"Vad betyder en heldragen linje mitt i vägen?", alt:["Du får köra om fritt","Du får inte köra över eller på linjen","Det markerar en cykelbana","Parkering är tillåten"], ratt:1, forklaring:"En heldragen linje får du inte köra över eller på. Den används där omkörning eller körfältsbyte är farligt." },
+  { id:"tr20", area:"trafikregler", fraga:"Trafiksignalen växlar till fast gult ljus. Vad ska du göra?", alt:["Gasa för att hinna igenom","Stanna, om du kan göra det utan fara","Köra på som vanligt","Backa"], ratt:1, forklaring:"Fast gult betyder att signalen är på väg att slå om till rött. Du ska stanna om du kan göra det utan fara." },
+  { id:"tr21", area:"trafikregler", fraga:"Vad betyder blinkande gult ljus i en trafiksignal?", alt:["Stopp","Kör med särskild försiktighet – korsningen är obevakad","Du har företräde","Signalen är trasig, strunta i korsningen"], ratt:1, forklaring:"Blinkande gult betyder att signalen inte reglerar korsningen just nu. Kör med försiktighet och följ vanliga väjningsregler." },
+  { id:"tr22", area:"trafikregler", fraga:"I vilket fall gäller INTE högerregeln?", alt:["När du kör på en huvudled","Den gäller alltid","Bara på natten","Endast i rondeller"], ratt:0, forklaring:"Högerregeln gäller inte om annat bestäms av t.ex. huvudled, väjningsplikts- eller stoppmärke eller trafiksignal." },
+  { id:"tr23", area:"trafikregler", fraga:"Får du köra om strax före ett övergångsställe?", alt:["Ja","Nej","Ja, om du kör långsamt","Endast om det inte finns gående i närheten"], ratt:1, forklaring:"Omkörning strax före och på ett övergångsställe är förbjuden, eftersom du kan skymma sikten för gående." },
+  { id:"tr24", area:"trafikregler", fraga:"Hur placerar du dig inför en vänstersväng på en väg med ett körfält i din riktning?", alt:["Långt till höger","Så nära vägens mitt som möjligt i ditt körfält","Mitt i körfältet","Det spelar ingen roll"], ratt:1, forklaring:"Inför vänstersväng placerar du dig nära mitten av vägen, så att andra kan passera till höger och förstår din avsikt." },
+  { id:"tr25", area:"trafikregler", fraga:"Du kör ut från en parkeringsplats ut på en gata. Vad gäller?", alt:["Du har företräde","Du har väjningsplikt mot all annan trafik","Högerregeln gäller","Du får köra när det är din tur"], ratt:1, forklaring:"Enligt utfartsregeln har du väjningsplikt mot all trafik när du kör ut från parkering, gård, bensinstation eller liknande." },
+  { id:"tr26", area:"trafikregler", fraga:"På en gata med högst 50 km/h blinkar en buss för att lämna en hållplats. Vad gäller?", alt:["Bussen får vänta på dig","Du ska sänka farten eller stanna och lämna bussen företräde","Du har alltid företräde","Du ska tuta"], ratt:1, forklaring:"Där hastighetsgränsen är högst 50 km/h ska du lämna företräde åt en buss som signalerar att den ska lämna hållplatsen." },
+  { id:"tr27", area:"trafikregler", fraga:"Vad gäller i ett gångfartsområde?", alt:["Du får köra 30 km/h","Du kör i gångfart och gående har företräde","Det är förbjudet att köra bil","Parkering är fri överallt"], ratt:1, forklaring:"I gångfartsområde får du köra högst i gångfart, gående har företräde och du får bara parkera på markerade platser." },
+  { id:"tr28", area:"trafikregler", fraga:"Får du stanna vid en busshållplats?", alt:["Nej, aldrig","Ja, kort för av- och påstigning, men du får inte parkera","Ja, du får parkera fritt","Endast bussar får stanna, men du får parkera"], ratt:1, forklaring:"Vid en hållplats får du stanna kort för av- och påstigning om du inte hindrar bussen, men du får inte parkera." },
+  { id:"tr29", area:"trafikregler", fraga:"Du närmar dig en järnvägskorsning där ljud och ljus varnar. Vad gör du?", alt:["Kör snabbt över","Stannar och väntar tills varningen upphör och det är fritt","Kör om de köande bilarna","Tutar och kör"], ratt:1, forklaring:"När ljus- eller ljudsignal varnar måste du stanna och vänta. Kör aldrig ut förrän varningen upphört och det är säkert." },
+  { id:"tr30", area:"trafikregler", fraga:"På en motorväg med två körfält i din riktning – vilket fält använder du normalt?", alt:["Det vänstra","Det högra; vänster körfält används för omkörning","Vilket som helst","Du kör på mittlinjen"], ratt:1, forklaring:"Du ska normalt hålla dig i höger körfält. Vänster körfält används för omkörning och ska sedan lämnas." },
+
+  // ===== VÄGMÄRKEN =====
+  { id:"vm1", area:"vagmarken", signId:"vajningsplikt", fraga:"Vad betyder detta vägmärke?", alt:["Stopplikt","Väjningsplikt","Huvudled","Förbud mot infart"], ratt:1, forklaring:"Triangeln med spetsen nedåt betyder väjningsplikt – du ska lämna företräde men behöver inte stanna om det är fritt." },
+  { id:"vm2", area:"vagmarken", signId:"stopp", fraga:"Vad innebär detta märke?", alt:["Väjningsplikt","Du måste stanna helt","Parkering","Slut på huvudled"], ratt:1, forklaring:"Stopplikt – du måste alltid stanna helt vid stopplinjen innan du kör vidare." },
+  { id:"vm3", area:"vagmarken", signId:"huvudled", fraga:"Vilket budskap ger detta märke?", alt:["Huvudled – du har företräde i korsningarna","Väjningsplikt","Parkering förbjuden","Motorväg"], ratt:0, forklaring:"Den gula romben betyder huvudled. Du har företräde i korsningarna tills märket upphör." },
+  { id:"vm4", area:"vagmarken", signId:"huvudled-upphor", fraga:"Vad betyder detta märke?", alt:["Huvudled börjar","Huvudled upphör","Stopplikt","Cirkulationsplats"], ratt:1, forklaring:"Märket visar att huvudleden upphör. Var beredd att lämna företräde enligt vanliga regler." },
+  { id:"vm5", area:"vagmarken", signId:"varning-vagkorsning", fraga:"Vad varnar detta märke för?", alt:["Cirkulationsplats","En vägkorsning","Avsmalnande väg","Farthinder"], ratt:1, forklaring:"Varning för korsning. Ofta gäller högerregeln – var beredd att lämna företräde." },
+  { id:"vm6", area:"vagmarken", signId:"varning-kurva", fraga:"Vad betyder detta varningsmärke?", alt:["Varning för kurva","Varning för korsning","Påbjuden körriktning","Omkörning förbjuden"], ratt:0, forklaring:"Varning för en kurva. Anpassa hastigheten innan du är inne i kurvan." },
+  { id:"vm7", area:"vagmarken", signId:"varning-rondell", fraga:"Vad varnar märket för?", alt:["Järnvägskorsning","Cirkulationsplats (rondell)","Avsmalnande väg","Gångfartsområde"], ratt:1, forklaring:"Varning för cirkulationsplats längre fram – sänk farten och var beredd att väja." },
+  { id:"vm8", area:"vagmarken", signId:"varning-avsmalnande", fraga:"Vad betyder detta märke?", alt:["Vägen smalnar av","Vägen breddas","Tvärbrant backe","Övergångsställe"], ratt:0, forklaring:"Varning för avsmalnande väg. Var beredd på mötande trafik och mindre utrymme." },
+  { id:"vm9", area:"vagmarken", signId:"varning-farthinder", fraga:"Vad varnar detta märke för?", alt:["Ojämn väg","Farthinder (gupp)","Vägkorsning","Halka"], ratt:1, forklaring:"Varning för farthinder, t.ex. ett gupp. Sänk farten." },
+  { id:"vm10", area:"vagmarken", signId:"varning-nedfor", fraga:"Vad betyder detta märke?", alt:["Brant lutning nedför","Brant lutning uppför","Stenras","Vägarbete"], ratt:0, forklaring:"Varning för brant nedförsbacke. Väx ned i tid och använd motorbroms." },
+  { id:"vm11", area:"vagmarken", signId:"forbud-infart", fraga:"Vad betyder detta märke?", alt:["Förbud mot infart med fordon","Enkelriktad gata","Stopplikt","Förbud att parkera"], ratt:0, forklaring:"Förbud mot infart med fordon – du får inte köra in på vägen från det hållet." },
+  { id:"vm12", area:"vagmarken", signId:"forbud-fordon", fraga:"Vad innebär detta märke?", alt:["Förbud mot fordonstrafik","Huvudled","Parkering tillåten","Påbjuden körriktning"], ratt:0, forklaring:"Förbud mot trafik med fordon – inga fordon får köra på vägen." },
+  { id:"vm13", area:"vagmarken", signId:"hastighet-50", fraga:"Vad betyder detta märke?", alt:["Rekommenderad hastighet 50","Högsta tillåtna hastighet 50 km/h","Minsta hastighet 50 km/h","Avstånd 50 meter"], ratt:1, forklaring:"Märket anger högsta tillåtna hastighet, här 50 km/h, och gäller tills annat märke kommer." },
+  { id:"vm14", area:"vagmarken", signId:"hastighet-30", fraga:"Vad betyder detta märke?", alt:["Högsta tillåtna hastighet 30 km/h","Slut på 30-zon","Rekommenderat 30","Mötesplats"], ratt:0, forklaring:"Högsta tillåtna hastighet 30 km/h. Vanligt nära skolor och bostadsområden." },
+  { id:"vm15", area:"vagmarken", signId:"hastighet-70", fraga:"Vad innebär detta märke?", alt:["Minsta hastighet 70 km/h","Högsta tillåtna hastighet 70 km/h","Avstånd 70 m","Vägnummer 70"], ratt:1, forklaring:"Högsta tillåtna hastighet 70 km/h. Anpassa ändå farten efter förhållandena." },
+  { id:"vm16", area:"vagmarken", signId:"forbud-omkorning", fraga:"Vad betyder detta märke?", alt:["Förbud mot omkörning","Varning för mötande trafik","Två körfält","Omkörning tillåten"], ratt:0, forklaring:"Förbud mot omkörning. Gäller tills förbudet upphör eller nästa korsning." },
+  { id:"vm17", area:"vagmarken", signId:"parkering-forbud", fraga:"Vad innebär detta märke?", alt:["Parkering tillåten","Förbud att parkera","Förbud att stanna","Huvudled"], ratt:1, forklaring:"Förbud att parkera. Du får dock stanna kort för av-/påstigning eller i-/urlastning." },
+  { id:"vm18", area:"vagmarken", signId:"pabud-rakt", fraga:"Vad betyder detta påbudsmärke?", alt:["Påbjuden körriktning – kör rakt fram","Förbjudet att köra rakt fram","Enkelriktat mot dig","Återvändsgränd"], ratt:0, forklaring:"Blått runt påbudsmärke med pil – du måste köra i pilens riktning, här rakt fram." },
+  { id:"vm19", area:"vagmarken", signId:"cirkulationsplats", fraga:"Vad betyder detta märke?", alt:["Varning för rondell","Cirkulationsplats – kör i pilarnas riktning","Rondell förbjuden","Sväng vänster"], ratt:1, forklaring:"Påbudsmärke för cirkulationsplats. Du ska köra i pilarnas riktning runt rondellen." },
+  { id:"vm20", area:"vagmarken", signId:"pabud-cykelbana", fraga:"Vad innebär detta märke?", alt:["Cykel förbjuden","Påbjuden cykelbana","Varning för cyklister","Cykeluthyrning"], ratt:1, forklaring:"Påbjuden cykelbana – banan ska användas av cyklister och förare av moped klass II." },
+  { id:"vm21", area:"vagmarken", signId:"pabud-gangbana", fraga:"Vad betyder detta märke?", alt:["Övergångsställe","Påbjuden gångbana","Gångtrafik förbjuden","Varning för lekande barn"], ratt:1, forklaring:"Påbjuden gångbana – avsedd endast för gående." },
+  { id:"vm22", area:"vagmarken", signId:"parkering", fraga:"Vad betyder detta märke?", alt:["Parkering tillåten","Parkering förbjuden","Påbjuden körriktning","Busshållplats"], ratt:0, forklaring:"Anvisningsmärke för parkering – här får du parkera (följ eventuella tilläggstavlor)." },
+  { id:"vm23", area:"vagmarken", signId:"overgangsstalle", fraga:"Vad betyder detta märke?", alt:["Påbjuden gångbana","Övergångsställe","Gångfartsområde","Lekplats"], ratt:1, forklaring:"Märket markerar ett övergångsställe där gående kan korsa vägen." },
+  { id:"vm24", area:"vagmarken", signId:"motorvag", fraga:"Vad innebär detta märke?", alt:["Motorväg börjar","Motortrafikled","Tunnel","Huvudled"], ratt:0, forklaring:"Märket visar att motorväg börjar. Särskilda regler gäller, t.ex. förbud mot långsamma fordon." },
+  { id:"vm25", area:"vagmarken", signId:"gangfartsomrade", fraga:"Vad betyder detta märke?", alt:["Gågata","Gångfartsområde","Lekplats","Parkering"], ratt:1, forklaring:"Gångfartsområde – kör högst i gångfart och lämna företräde åt gående." },
+
+  // ===== FORDONSKÄNNEDOM =====
+  { id:"fo1", area:"fordon", fraga:"Vilket är det minsta tillåtna mönsterdjupet på sommardäck?", alt:["1,0 mm","1,6 mm","3,0 mm","5,0 mm"], ratt:1, forklaring:"Sommardäck måste ha minst 1,6 mm mönsterdjup. Mer mönster ger bättre grepp, särskilt på vått underlag." },
+  { id:"fo2", area:"fordon", fraga:"Vilket är det minsta tillåtna mönsterdjupet på vinterdäck vid vinterväglag?", alt:["1,6 mm","2,0 mm","3,0 mm","4,0 mm"], ratt:2, forklaring:"Vid vinterväglag måste vinterdäcken ha minst 3,0 mm mönsterdjup för att ge tillräckligt grepp." },
+  { id:"fo3", area:"fordon", fraga:"När är vinterdäck ett krav?", alt:["Hela året","1 december–31 mars vid vinterväglag","Endast i januari","Aldrig, det är frivilligt"], ratt:1, forklaring:"Vinterdäck krävs 1 december–31 mars när det råder vinterväglag." },
+  { id:"fo4", area:"fordon", fraga:"Vad är fördelen med ABS-bromsar?", alt:["Bilen bromsar helt utan att du trampar","Hjulen låser sig inte, så att du kan styra under inbromsning","Bromssträckan blir alltid noll","Du slipper byta bromsbelägg"], ratt:1, forklaring:"ABS hindrar hjulen från att låsa sig vid hård inbromsning, vilket gör att du kan fortsätta styra undan." },
+  { id:"fo5", area:"fordon", fraga:"Hur bör du bromsa i en nödsituation med ABS-bromsar?", alt:["Pumpa snabbt på bromsen","Trampa hårt och håll kvar trycket","Bromsa försiktigt","Dra bara i handbromsen"], ratt:1, forklaring:"Med ABS trampar du hårt och håller kvar – systemet sköter pumpandet automatiskt så att du kan styra." },
+  { id:"fo6", area:"fordon", fraga:"Vad händer om däcken har för lågt lufttryck?", alt:["Bränsleförbrukningen minskar","Förbrukning och slitage ökar och väggreppet försämras","Inget alls","Bilen går fortare"], ratt:1, forklaring:"För lågt däcktryck ökar både bränsleförbrukning och däckslitage och försämrar väghållningen." },
+  { id:"fo7", area:"fordon", fraga:"En röd varningslampa tänds på instrumentpanelen. Vad bör du göra?", alt:["Köra vidare som vanligt","Stanna och åtgärda felet – det är allvarligt","Vänta tills den slocknar","Täcka över lampan"], ratt:1, forklaring:"En röd varningslampa signalerar ett allvarligt fel. Stanna så snart du kan och åtgärda problemet." },
+  { id:"fo8", area:"fordon", fraga:"Vad betyder en gul/orange varningslampa oftast?", alt:["Att du måste stanna omedelbart","Att något bör kontrolleras, men det är mindre akut","Att allt är som det ska","Att bränslet är slut"], ratt:1, forklaring:"Gul/orange lampa betyder att något bör kontrolleras snart, men är normalt mindre allvarligt än en röd lampa." },
+  { id:"fo9", area:"fordon", fraga:"När får du använda helljus?", alt:["Alltid i mörker","I mörker när du inte riskerar att blända andra trafikanter","Aldrig","Endast i tunnlar"], ratt:1, forklaring:"Helljus får användas i mörker, men du måste växla till halvljus så att du inte bländar mötande eller framförvarande." },
+  { id:"fo10", area:"fordon", fraga:"Du möter en bil i mörker. Vad gör du med helljuset?", alt:["Behåller helljuset","Växlar till halvljus i god tid","Släcker alla lyktor","Blinkar med helljuset"], ratt:1, forklaring:"Du ska växla till halvljus i god tid så att du inte bländar den mötande föraren." },
+  { id:"fo11", area:"fordon", fraga:"Vilka i bilen måste använda bilbälte?", alt:["Bara föraren","Bara de i framsätet","Alla som åker i bilen","Endast barn"], ratt:2, forklaring:"Alla som åker i bilen ska använda bilbälte – även passagerare i baksätet. Bältet är ett av de viktigaste skydden." },
+  { id:"fo12", area:"fordon", fraga:"Hur bör små barn placeras i bilen?", alt:["I framsätet utan stol","I bakåtvänd bilbarnstol så länge som möjligt","I knät på en vuxen","Stående i baksätet"], ratt:1, forklaring:"Barn bör åka bakåtvända så länge som möjligt (minst till 3–4 års ålder), eftersom det skyddar nacke och huvud bäst." },
+  { id:"fo13", area:"fordon", fraga:"Du transporterar last som skjuter ut mer än 1 meter bakom bilen. Vad gäller?", alt:["Inget särskilt","Lasten ska märkas ut tydligt","Det är alltid förbjudet","Du måste köra på motorväg"], ratt:1, forklaring:"Last som skjuter ut mer än 1 meter bakom fordonet ska märkas ut, t.ex. med en flagga eller lykta i mörker." },
+  { id:"fo14", area:"fordon", fraga:"Vad gäller för bilens totalvikt?", alt:["Den får överskridas på korta resor","Den får aldrig överskridas","Den gäller bara på motorväg","Den spelar ingen roll med släp"], ratt:1, forklaring:"Bilens högsta tillåtna totalvikt får aldrig överskridas. Överlast försämrar väghållning och bromsar och är förbjuden." },
+  { id:"fo15", area:"fordon", fraga:"Var bör du placera tung last i bilen?", alt:["Högt upp och långt bak","Lågt och så centrerat som möjligt","I framsätet","Det spelar ingen roll"], ratt:1, forklaring:"Tung last placeras lågt och centrerat så att bilens tyngdpunkt och köregenskaper påverkas så lite som möjligt." },
+  { id:"fo16", area:"fordon", fraga:"Hur påverkas bromssträckan av slitna däck på blöt väg?", alt:["Den blir kortare","Den blir längre","Den påverkas inte","Bilen bromsar bättre"], ratt:1, forklaring:"Slitna däck leder bort vatten sämre, vilket ger sämre grepp och längre bromssträcka – och ökad risk för vattenplaning." },
+  { id:"fo17", area:"fordon", fraga:"Varför är fungerande vindrutetorkare och spolarvätska viktiga?", alt:["För att spara bränsle","För att du ska ha god sikt","För att bilen ska gå fortare","De behövs bara på vintern"], ratt:1, forklaring:"Ren vindruta är avgörande för sikten. Smuts och insekter kan kraftigt försämra hur mycket du ser." },
+  { id:"fo18", area:"fordon", fraga:"Vad bör du kontrollera innan en längre resa?", alt:["Bara bränslenivån","Däck, däcktryck, ljus, vätskor och bromsar","Endast radion","Ingenting, bilen klarar sig"], ratt:1, forklaring:"En enkel säkerhetskontroll av däck, ljus, vätskor och bromsar minskar risken för haveri och olyckor på resan." },
+
+  // ===== VÄGLAG & VÄDER =====
+  { id:"vl1", area:"vaglag", fraga:"Vad består din stoppsträcka av?", alt:["Bara bromssträckan","Reaktionssträcka + bromssträcka","Bara reaktionssträckan","Avståndet till bilen framför"], ratt:1, forklaring:"Stoppsträckan är summan av reaktionssträckan (innan du börjar bromsa) och bromssträckan (tills bilen står still)." },
+  { id:"vl2", area:"vaglag", fraga:"Hur påverkas bromssträckan om du dubblar hastigheten?", alt:["Den blir dubbelt så lång","Den blir ungefär fyra gånger så lång","Den blir tre gånger så lång","Den påverkas inte"], ratt:1, forklaring:"Bromssträckan ökar med kvadraten på hastigheten – dubbel fart ger ungefär fyrdubbel bromssträcka." },
+  { id:"vl3", area:"vaglag", fraga:"Ungefär hur lång är en normal reaktionstid?", alt:["0,1 sekund","Cirka 1 sekund","5 sekunder","10 sekunder"], ratt:1, forklaring:"En normal reaktionstid är ungefär 1 sekund. Trötthet, alkohol och distraktion gör den längre." },
+  { id:"vl4", area:"vaglag", fraga:"Vad är vattenplaning?", alt:["När bromsarna blir blöta","När däcken tappar kontakt med vägen och glider på en vattenfilm","När vindrutan immar igen","När motorn får vatten"], ratt:1, forklaring:"Vid vattenplaning byggs en vattenkil upp framför däcket så att det tappar kontakten med vägbanan. Du tappar både styrning och bromsverkan." },
+  { id:"vl5", area:"vaglag", fraga:"Vad gör du om bilen börjar vattenplana?", alt:["Bromsar kraftigt","Släpper gasen, håller ratten stilla och undviker att bromsa hårt","Gasar mer","Svänger snabbt"], ratt:1, forklaring:"Släpp gasen och håll ratten stilla tills däcken får grepp igen. Tvära rörelser eller hård inbromsning gör det värre." },
+  { id:"vl6", area:"vaglag", fraga:"Vid vilken temperatur är halkrisken ofta som störst?", alt:["Runt 0 grader","Vid –20 grader","Vid +10 grader","Vid +20 grader"], ratt:0, forklaring:"Kring noll grader kan vägen växla mellan vått och isigt, och underkylt regn ger blixthalka. Då är risken som störst." },
+  { id:"vl7", area:"vaglag", fraga:"Vilket ljus ska du använda i tät dimma?", alt:["Helljus","Halvljus (och eventuellt dimljus)","Inget ljus alls","Parkeringsljus"], ratt:1, forklaring:"Använd halvljus och vid behov dimljus. Helljus reflekteras tillbaka i dimman och försämrar sikten." },
+  { id:"vl8", area:"vaglag", fraga:"Vad är särskilt svårt vid mörkerkörning?", alt:["Att höra motorn","Att bedöma avstånd och hastighet samt upptäcka oskyddade trafikanter","Att hålla i ratten","Att tanka bilen"], ratt:1, forklaring:"I mörker är det svårare att bedöma avstånd och fart och att upptäcka gående och cyklister i tid. Sänk farten." },
+  { id:"vl9", area:"vaglag", fraga:"Du blir bländad av solen eller en mötande bil. Vad gör du?", alt:["Blundar en kort stund","Sänker farten och riktar blicken mot vägens högra kant","Gasar för att passera snabbt","Stänger av ljuset"], ratt:1, forklaring:"Sänk farten och använd vägens högra kant och kantlinjen som ledning tills bländningen upphör." },
+  { id:"vl10", area:"vaglag", fraga:"Hur bör du köra på vått väglag?", alt:["Som på torr väg","Sänka farten och öka avståndet till fordonet framför","Öka farten","Köra närmare bilen framför"], ratt:1, forklaring:"Vått väglag ger längre bromssträcka och risk för vattenplaning. Sänk farten och håll större avstånd." },
+  { id:"vl11", area:"vaglag", fraga:"Vad påverkar din bromssträcka?", alt:["Endast bilens färg","Hastighet, väglag och däckens skick","Bara hur ny bilen är","Antalet passagerare enbart"], ratt:1, forklaring:"Bromssträckan beror främst på hastigheten, väglaget (torrt, vått, isigt) och däckens grepp." },
+  { id:"vl12", area:"vaglag", fraga:"Var fryser vägbanan ofta först?", alt:["Mitt i städer","På broar och i skuggiga partier","I uppförsbackar","Vid bensinstationer"], ratt:1, forklaring:"Broar kyls från flera håll och skuggiga partier värms inte av solen – där bildas is först." },
+  { id:"vl13", area:"vaglag", fraga:"Hur bör du bromsa på isig väg?", alt:["Hårt och plötsligt","Mjukt och i god tid","Med handbromsen","Genom att gasa"], ratt:1, forklaring:"På is har du litet grepp. Bromsa mjukt och tidigt, och undvik tvära rörelser som kan få bilen att sladda." },
+  { id:"vl14", area:"vaglag", fraga:"Hur ska avståndet till fordonet framför ändras vid dåligt väder?", alt:["Minskas","Ökas","Vara oförändrat","Spelar ingen roll"], ratt:1, forklaring:"Vid regn, snö och halka behöver du ännu större avstånd än de vanliga 3 sekunderna eftersom bromssträckan blir längre." },
+  { id:"vl15", area:"vaglag", fraga:"När ska dimbakljuset användas?", alt:["Alltid i mörker","Vid kraftigt nedsatt sikt, t.ex. tät dimma – och släckas när sikten blir bättre","Vid regn alltid","Aldrig"], ratt:1, forklaring:"Dimbakljus används bara vid kraftigt nedsatt sikt. Lämnar du det tänt i klart väder bländar du bakomvarande." },
+
+  // ===== RISKBETEENDEN =====
+  { id:"ri1", area:"risk", fraga:"Vid vilken alkoholhalt i blodet räknas det som rattfylleri?", alt:["0,2 ‰","0,5 ‰","0,8 ‰","1,0 ‰"], ratt:0, forklaring:"Gränsen för rattfylleri i Sverige är 0,2 promille alkohol i blodet." },
+  { id:"ri2", area:"risk", fraga:"Vid vilken alkoholhalt räknas det normalt som grovt rattfylleri?", alt:["0,2 ‰","0,5 ‰","1,0 ‰","2,0 ‰"], ratt:2, forklaring:"Vid 1,0 promille eller mer räknas det normalt som grovt rattfylleri, vilket kan ge fängelse." },
+  { id:"ri3", area:"risk", fraga:"Hur påverkar alkohol din körförmåga?", alt:["Den förbättras","Omdöme, reaktionsförmåga och syn försämras","Bara synen påverkas","Ingen påverkan vid små mängder"], ratt:1, forklaring:"Alkohol försämrar omdöme, reaktionsförmåga, koncentration och syn – ofta innan du själv märker det." },
+  { id:"ri4", area:"risk", fraga:"Ungefär hur snabbt bryter kroppen ned alkohol?", alt:["Cirka 0,1 ‰ per timme","1 ‰ per timme","Direkt","2 ‰ per timme"], ratt:0, forklaring:"Kroppen bryter ned ungefär 0,1 promille per timme. Det går alltså inte att snabba på processen." },
+  { id:"ri5", area:"risk", fraga:"Vad hjälper för att snabbare bli nykter?", alt:["Kaffe","En kall dusch","Att äta","Ingenting – bara tid"], ratt:3, forklaring:"Varken kaffe, dusch eller mat påverkar nedbrytningen. Endast tid gör dig nykter." },
+  { id:"ri6", area:"risk", fraga:"Vad gäller för narkotika och bilkörning?", alt:["Tillåtet i små mängder","Nolltolerans – det är helt förbjudet","Tillåtet dagen efter","Bara förbjudet för nya förare"], ratt:1, forklaring:"För narkotika gäller nolltolerans i trafiken. Det är helt förbjudet att köra påverkad av narkotika." },
+  { id:"ri7", area:"risk", fraga:"Hur kan du veta om en medicin kan påverka din körförmåga?", alt:["Det går inte att veta","Genom varningstriangeln på förpackningen och att fråga apoteket eller läkare","Mediciner påverkar aldrig","Bara receptfria mediciner påverkar"], ratt:1, forklaring:"En röd varningstriangel på läkemedlet visar att det kan påverka körförmågan. Fråga apoteket eller din läkare om du är osäker." },
+  { id:"ri8", area:"risk", fraga:"Vad är den farligaste följden av att köra trött?", alt:["Att du kör för fort","Mikrosömn – några sekunders ofrivillig sömn","Att du blir hungrig","Att du glömmer vägen"], ratt:1, forklaring:"Mikrosömn innebär att du somnar några sekunder utan att märka det. På hög fart hinner bilen långt helt utan kontroll." },
+  { id:"ri9", area:"risk", fraga:"Vad är det enda som verkligen hjälper mot trötthet bakom ratten?", alt:["Att veva ner rutan","Att höja musiken","Att stanna och vila eller sova","Att äta godis"], ratt:2, forklaring:"Friskluft och musik ger bara kortvarig effekt. Det enda som hjälper är att stanna och vila eller sova en stund." },
+  { id:"ri10", area:"risk", fraga:"Vilket är ett tidigt tecken på trötthet vid körning?", alt:["Du ser bättre","Gäspningar, tunga ögonlock och att du missar skyltar","Du blir piggare","Du kör rakare"], ratt:1, forklaring:"Gäspningar, tunga ögonlock, sicksackkörning och att man missar skyltar är tecken på att du behöver vila." },
+  { id:"ri11", area:"risk", fraga:"Vad gäller för mobiltelefon under körning?", alt:["Den får hållas i handen om du kör sakta","Du får inte hålla mobilen i handen och måste ha full uppmärksamhet på trafiken","Det är alltid tillåtet","Endast samtal är tillåtet i handen"], ratt:1, forklaring:"Du får inte hålla mobilen i handen under körning. Att läsa eller skriva tar blicken från vägen flera sekunder – mycket farligt." },
+  { id:"ri12", area:"risk", fraga:"Hur påverkar stress och ilska din körning?", alt:["Den blir säkrare","Omdömet försämras och du tar farligare beslut","Ingen påverkan","Du kör långsammare och säkrare"], ratt:1, forklaring:"Stress och ilska gör att du fattar sämre och mer impulsiva beslut. Försök lugna ner dig innan och under körning." },
+  { id:"ri13", area:"risk", fraga:"Varför är grupptryck en risk, särskilt för unga förare?", alt:["Det gör körningen tryggare","Det kan få dig att köra fortare eller ta större risker än du vill","Det påverkar inte alls","Det gäller bara passagerare"], ratt:1, forklaring:"Att vilja imponera eller ge efter för kompisar kan leda till högre fart och farligare beteende. Stå emot trycket." },
+  { id:"ri14", area:"risk", fraga:"Varför är nattkörning extra riskfyllt?", alt:["Vägarna är sämre på natten","Kroppen är inställd på sömn, vilket ökar trötthetsrisken","Det är alltid halt på natten","Bilen drar mer bränsle"], ratt:1, forklaring:"På natten är kroppens dygnsrytm inställd på sömn. Trötthet och mikrosömn är därför vanligare nattetid." },
+  { id:"ri15", area:"risk", fraga:"Kan du vara påverkad av alkohol morgonen efter en fest?", alt:["Nej, alltid nykter på morgonen","Ja, alkohol kan finnas kvar i blodet länge","Bara om du druckit sprit","Endast om du sovit dåligt"], ratt:1, forklaring:"Eftersom alkohol bryts ned långsamt kan du fortfarande vara över gränsen på morgonen, även om du känner dig pigg." },
+  { id:"ri16", area:"risk", fraga:"Hur påverkar högre hastighet skaderisken vid en olycka?", alt:["Den minskar","Den ökar kraftigt och stoppsträckan blir längre","Ingen påverkan","Den ökar bara på landsväg"], ratt:1, forklaring:"Högre fart ger längre stoppsträcka och mycket större krockvåld. Skaderisken stiger snabbt med hastigheten." },
+  { id:"ri17", area:"risk", fraga:"Du är för trött för att köra säkert. Vad är bäst?", alt:["Köra ändå men långsammare","Ta en paus och vila, eller låta någon annan köra","Dricka energidryck och fortsätta","Köra med vevad ruta"], ratt:1, forklaring:"Är du för trött ska du inte köra. Vila, sov eller låt en utvilad förare ta över." },
+  { id:"ri18", area:"risk", fraga:"Hur kan sjukdom eller feber påverka körningen?", alt:["Inte alls","Den kan försämra koncentration och reaktionsförmåga","Den gör dig piggare","Bara om du hostar"], ratt:1, forklaring:"Sjukdom, feber och vissa symtom försämrar koncentration och reaktion. Avstå från att köra om du känner dig dålig." },
+  { id:"ri19", area:"risk", fraga:"Vad är en stor risk även vid små mängder alkohol?", alt:["Att du kör för sakta","Att du överskattar din egen förmåga och tar fler risker","Att bilen drar mer bränsle","Inget"], ratt:1, forklaring:"Redan små mängder alkohol kan göra att du överskattar din förmåga och tar risker du normalt skulle undvika." },
+  { id:"ri20", area:"risk", fraga:"Vad händer om du kombinerar alkohol med trötthet eller vissa mediciner?", alt:["Effekterna tar ut varandra","Effekterna kan förstärka varandra och bli farligare","Inget särskilt","Du blir piggare"], ratt:1, forklaring:"Alkohol tillsammans med trötthet eller vissa läkemedel kan förstärka varandra och kraftigt försämra körförmågan." },
+
+  // ===== SAMSPEL I TRAFIKEN =====
+  { id:"sa1", area:"samspel", fraga:"Vilka räknas som oskyddade trafikanter?", alt:["Bilförare","Fotgängare, cyklister, mopedister och motorcyklister","Bussförare","Lastbilschaufförer"], ratt:1, forklaring:"Oskyddade trafikanter saknar karossens skydd. De skadas lätt allvarligt och kräver din extra hänsyn." },
+  { id:"sa2", area:"samspel", fraga:"Varför är det extra viktigt att visa hänsyn mot oskyddade trafikanter?", alt:["De kör fortast","De saknar skydd och skadas lätt allvarligt vid en kollision","De har alltid företräde","De syns alltid bra"], ratt:1, forklaring:"Utan skydd blir följderna av en krock mycket allvarligare för dem. Anpassa fart och avstånd därefter." },
+  { id:"sa3", area:"samspel", fraga:"Du ska svänga höger och en cyklist kör rakt fram på cykelbanan bredvid dig. Vad gäller?", alt:["Du har företräde","Du har väjningsplikt mot cyklisten","Cyklisten måste stanna","Du tutar och svänger"], ratt:1, forklaring:"När du korsar en cykelbana vid sväng har du väjningsplikt mot cyklisten som kör rakt fram." },
+  { id:"sa4", area:"samspel", fraga:"Vad bör du särskilt kontrollera innan du byter körfält eller svänger?", alt:["Bränslemätaren","Den döda vinkeln genom att titta över axeln","Radiokanalen","Klockan"], ratt:1, forklaring:"Speglarna täcker inte allt. Titta över axeln för att kontrollera den döda vinkeln innan körfältsbyte eller sväng." },
+  { id:"sa5", area:"samspel", fraga:"Hur bör du betrakta barns beteende i trafiken?", alt:["Som vuxnas","Som oberäkneligt – de kan agera plötsligt och förstår inte alltid faran","Som alltid försiktigt","Som bilförares"], ratt:1, forklaring:"Barn är korta, syns dåligt och kan springa ut utan att titta. Sänk farten och var beredd att stanna." },
+  { id:"sa6", area:"samspel", fraga:"En boll rullar ut i gatan framför dig. Vad gör du?", alt:["Kör vidare som vanligt","Bromsar och är beredd – ett barn kan komma efter bollen","Tutar","Ökar farten"], ratt:1, forklaring:"Efter en boll kommer ofta ett barn springande. Sänk farten och var beredd att stanna." },
+  { id:"sa7", area:"samspel", fraga:"Hur bör du köra vid skolor och lekplatser?", alt:["Som vanligt","Sänka farten och vara extra uppmärksam på barn","Öka farten för att passera snabbt","Köra närmare trottoaren"], ratt:1, forklaring:"Vid skolor, lekplatser och bostadsområden rör sig många barn. Sänk farten och var extra vaksam." },
+  { id:"sa8", area:"samspel", fraga:"Hur visar du hänsyn mot en äldre fotgängare vid ett övergångsställe?", alt:["Tutar för att skynda på","Ger personen gott om tid att gå över","Kör tätt förbi","Blinkar med helljuset"], ratt:1, forklaring:"Äldre kan röra sig långsammare. Ge dem tid och stressa aldrig fram någon som korsar vägen." },
+  { id:"sa9", area:"samspel", fraga:"Vad är viktigt när du kör om en cyklist?", alt:["Köra så nära som möjligt","Hålla ett gott sidoavstånd","Tuta hela tiden","Köra om i hög fart tätt intill"], ratt:1, forklaring:"Ge cyklisten gott om sidoavstånd vid omkörning. Cyklister kan vingla och påverkas av din luftvirvel." },
+  { id:"sa10", area:"samspel", fraga:"Varför ska du titta en extra gång efter motorcyklister?", alt:["De kör alltid för fort","De är smala och lätta att missa, särskilt i korsningar","De har inga lyktor","De syns bättre än bilar"], ratt:1, forklaring:"Motorcyklar är smala och hamnar lätt i döda vinkeln eller missas i korsningar. En extra blick kan rädda liv." },
+  { id:"sa11", area:"samspel", fraga:"En buss står vid en hållplats. Vad bör du räkna med?", alt:["Att inga människor finns där","Att gående, särskilt barn, kan springa ut framför eller bakom bussen","Att bussen kör först","Att du har företräde"], ratt:1, forklaring:"Vid hållplatser kan människor korsa vägen oväntat. Sänk farten och var beredd att stanna." },
+  { id:"sa12", area:"samspel", fraga:"När bör du ge tecken med blinkers för att samspelet ska fungera?", alt:["Precis i svängen","I god tid innan du svänger eller byter körfält","Efter manövern","Bara om någon är bakom"], ratt:1, forklaring:"Tydliga tecken i god tid gör att andra hinner förstå och anpassa sig efter din avsikt." },
+  { id:"sa13", area:"samspel", fraga:"Vad kan ögonkontakt med en fotgängare användas till?", alt:["Att skrämmas","Att bekräfta att ni sett varandra och vem som går först","Inget","Att hälsa"], ratt:1, forklaring:"Ögonkontakt är ett enkelt sätt att kommunicera och försäkra sig om att man uppfattat varandra." },
+  { id:"sa14", area:"samspel", fraga:"Hur bör du köra för att vara lätt att samspela med?", alt:["Oförutsägbart","Förutsägbart och utan plötsliga manövrar","Så fort som möjligt","Tätt bakom andra"], ratt:1, forklaring:"Förutsägbar körning gör att andra kan lita på vad du tänker göra, vilket minskar risken för missförstånd och olyckor." },
+  { id:"sa15", area:"samspel", fraga:"Ett utryckningsfordon närmar sig med blåljus och siren. Vad gör du?", alt:["Kör fortare för att komma undan","Lämnar fri väg, kör åt sidan och stannar vid behov","Bromsar tvärt mitt i vägen","Ignorerar det"], ratt:1, forklaring:"Lämna fri väg åt utryckningsfordon. Kör lugnt åt sidan och stanna om det behövs, men blockera inte korsningar." },
+  { id:"sa16", area:"samspel", fraga:"Du får grönt ljus men en fotgängare hinner inte över. Vad gör du?", alt:["Kör ändå","Väntar och låter personen gå klart","Tutar","Kör tätt förbi"], ratt:1, forklaring:"Även vid grönt måste du låta gående som redan är ute på övergångsstället gå klart innan du kör." },
+  { id:"sa17", area:"samspel", fraga:"Varför är cyklister som befinner sig till höger om dig farliga när du ska svänga höger?", alt:["De kör för sakta","De kan hamna i din döda vinkel och köra rakt fram när du svänger","De finns aldrig där","De har alltid väjningsplikt"], ratt:1, forklaring:"En cyklist till höger kan lätt missas. Kontrollera noga och lämna företräde innan du svänger höger." },
+  { id:"sa18", area:"samspel", fraga:"Hur visar du tydligast dina avsikter för andra trafikanter?", alt:["Genom att köra fort","Genom blinkers och rätt placering på vägen","Genom att tuta","Genom att blinka med ljuset"], ratt:1, forklaring:"Körriktningsvisare i kombination med korrekt placering visar tydligt vad du tänker göra." },
+
+  // ===== MILJÖ =====
+  { id:"mi1", area:"miljo", fraga:"Vilken gas från bilar bidrar mest till växthuseffekten?", alt:["Syre","Koldioxid (CO₂)","Kväve","Vattenånga"], ratt:1, forklaring:"Koldioxid (CO₂) är den främsta växthusgasen från fordon. Mängden hänger direkt ihop med bränsleförbrukningen." },
+  { id:"mi2", area:"miljo", fraga:"Vad gör en katalysator?", alt:["Ökar motoreffekten","Renar avgaserna från skadliga ämnen","Sänker bränsleförbrukningen","Värmer kupén"], ratt:1, forklaring:"Katalysatorn omvandlar en stor del av de skadliga ämnena i avgaserna till mindre farliga ämnen." },
+  { id:"mi3", area:"miljo", fraga:"När fungerar katalysatorn sämst?", alt:["När motorn är varm","När motorn är kall, t.ex. vid kallstart","På motorväg","Vid höga varv"], ratt:1, forklaring:"Katalysatorn behöver driftstemperatur för att rena effektivt. Korta resor med kall motor ger därför höga utsläpp." },
+  { id:"mi4", area:"miljo", fraga:"Vilka av dessa räknas som förnybara bränslen?", alt:["Bensin och diesel","Etanol och biogas","Endast diesel","Råolja"], ratt:1, forklaring:"Etanol (E85) och biogas är förnybara och ger lägre nettoutsläpp av fossil koldioxid än bensin och diesel." },
+  { id:"mi5", area:"miljo", fraga:"Var bör du tvätta bilen?", alt:["På gatan","I en biltvätt eller på en spolplatta","I trädgården","Vid en sjö"], ratt:1, forklaring:"I biltvätt eller på spolplatta renas vattnet. Tvättar du på gatan rinner olja och kemikalier rakt ut i dagvattnet." },
+  { id:"mi6", area:"miljo", fraga:"Varför är det olämpligt att tvätta bilen på gatan?", alt:["Det är tillåtet och bra","Smuts, olja och kemikalier rinner orenade ut i naturen via dagvattnet","Det tar för lång tid","Bilen blir inte ren"], ratt:1, forklaring:"Vatten från gatan går ofta orenat ut i sjöar och vattendrag. Föroreningarna skadar miljön." },
+  { id:"mi7", area:"miljo", fraga:"Vad minskar bilens miljöpåverkan mest?", alt:["Att köra fortare","Att förbruka mindre bränsle, t.ex. genom sparsam körning","Att tvätta bilen ofta","Att ha helljuset på"], ratt:1, forklaring:"Mindre bränsle innebär mindre utsläpp. Sparsam körning och färre korta resor gör stor skillnad." },
+  { id:"mi8", area:"miljo", fraga:"Vilka av dessa är fossila bränslen?", alt:["Bensin och diesel","Biogas och el","Etanol och vätgas","Solenergi"], ratt:0, forklaring:"Bensin och diesel kommer från olja och är fossila. Vid förbränning frigörs koldioxid som varit bunden i miljontals år." },
+  { id:"mi9", area:"miljo", fraga:"Vilka skadliga ämnen finns i bilavgaser förutom koldioxid?", alt:["Bara vattenånga","Kväveoxider, kolväten och partiklar","Endast syre","Inga skadliga ämnen"], ratt:1, forklaring:"Avgaser innehåller bland annat kväveoxider, kolväten och partiklar som påverkar både hälsa och miljö." },
+  { id:"mi10", area:"miljo", fraga:"Hur hänger bränsleförbrukning och utsläpp ihop?", alt:["De har inget samband","Mer bränsle ger mer koldioxidutsläpp","Mindre bränsle ger mer utsläpp","Bara dieselbilar släpper ut något"], ratt:1, forklaring:"Ju mer bränsle du förbrukar, desto mer koldioxid släpps ut. Att köra snålt minskar alltså utsläppen direkt." },
+  { id:"mi11", area:"miljo", fraga:"Vad gör du med spillolja och uttjänta bilbatterier?", alt:["Slänger i soporna","Lämnar till återvinning eller miljöstation","Häller ut dem","Gräver ned dem"], ratt:1, forklaring:"Spillolja och batterier är farligt avfall och ska lämnas till återvinning, aldrig hällas ut eller slängas i hushållssoporna." },
+  { id:"mi12", area:"miljo", fraga:"Vad är ett miljövänligt alternativ till korta bilresor?", alt:["Köra ännu kortare med kall motor","Att gå, cykla eller åka kollektivt","Att låta bilen gå på tomgång","Att köra omvägar"], ratt:1, forklaring:"Korta resor med kall motor släpper ut mest per kilometer. Att gå, cykla eller åka kollektivt är både miljövänligt och hälsosamt." },
+
+  // ===== MILJÖVÄNLIG KÖRNING =====
+  { id:"sp1", area:"sparsam", fraga:"Hur bör du växla för att köra sparsamt?", alt:["Växla upp sent och köra på höga varv","Växla upp tidigt och köra på låga varv","Aldrig växla","Bara använda lägsta växeln"], ratt:1, forklaring:"Att växla upp tidigt och hålla låga varvtal sänker bränsleförbrukningen utan att försämra framkomligheten." },
+  { id:"sp2", area:"sparsam", fraga:"Vad innebär att använda motorbroms?", alt:["Att bromsa hårt med fotbromsen","Att släppa gasen och låta motorn bromsa, ofta med växel ilagd","Att dra i handbromsen","Att stänga av motorn"], ratt:1, forklaring:"Vid motorbroms (gasen släppt med växel i) stryps bränsletillförseln helt – du sparar bränsle och slitage på bromsarna." },
+  { id:"sp3", area:"sparsam", fraga:"Vad gäller för tomgångskörning?", alt:["Den är gratis och bra","Den bör undvikas – stäng av motorn vid längre stopp","Den värmer motorn snabbast","Den minskar utsläppen"], ratt:1, forklaring:"Tomgång drar bränsle och förorenar i onödan. I många tätorter är högst 1 minuts tomgång tillåten. Stäng av vid längre stopp." },
+  { id:"sp4", area:"sparsam", fraga:"Hur påverkar rätt däcktryck bränsleförbrukningen?", alt:["Det spelar ingen roll","Korrekt däcktryck sänker förbrukningen","För lågt tryck sänker förbrukningen","Högt tryck ökar förbrukningen kraftigt"], ratt:1, forklaring:"För lågt däcktryck ökar rullmotståndet och därmed förbrukningen. Kontrollera trycket regelbundet." },
+  { id:"sp5", area:"sparsam", fraga:"Varför bör du ta bort takbox och takräcke när de inte används?", alt:["De är olagliga","De ökar luftmotståndet och därmed bränsleförbrukningen","De gör bilen tystare","De påverkar inget"], ratt:1, forklaring:"Takbox och takräcke ökar luftmotståndet, särskilt vid högre fart, vilket höjer förbrukningen rejält." },
+  { id:"sp6", area:"sparsam", fraga:"Hur påverkar högre hastighet bränsleförbrukningen?", alt:["Den minskar","Den ökar, eftersom luftmotståndet växer snabbt med farten","Ingen påverkan","Den halveras"], ratt:1, forklaring:"Luftmotståndet ökar kraftigt med hastigheten. Att sänka farten något ger ofta stor effekt på förbrukningen." },
+  { id:"sp7", area:"sparsam", fraga:"Vilken körstil är mest bränslesnål?", alt:["Tvära inbromsningar och snabba gaspådrag","Mjuk och jämn körning med god framförhållning","Hög fart mellan stoppen","Många snabba accelerationer"], ratt:1, forklaring:"Jämn, mjuk körning utan onödiga inbromsningar och accelerationer sparar mest bränsle." },
+  { id:"sp8", area:"sparsam", fraga:"Hur påverkar onödig vikt i bilen förbrukningen?", alt:["Den minskar","Den ökar – tyngre bil drar mer bränsle","Ingen påverkan","Bara på motorväg"], ratt:1, forklaring:"Extra vikt kräver mer energi att flytta. Töm bilen på sådant du inte behöver för att spara bränsle." },
+  { id:"sp9", area:"sparsam", fraga:"Hur kan god planering av resan spara bränsle?", alt:["Genom att köra omvägar","Genom att undvika köer och onödiga stopp","Genom att köra fortare","Genom att tanka oftare"], ratt:1, forklaring:"En planerad rutt med färre stopp och mindre köstående ger jämnare körning och lägre förbrukning." },
+  { id:"sp10", area:"sparsam", fraga:"Ungefär hur mycket kan sparsam körning sänka bränsleförbrukningen?", alt:["1–2 %","10–20 %","50 %","Den påverkar inte förbrukningen"], ratt:1, forklaring:"Med sparsam körteknik kan förbrukningen typiskt sänkas med 10–20 % – bra för både plånbok och miljö." },
+  { id:"sp11", area:"sparsam", fraga:"Vad menas med förutseende körning?", alt:["Att köra med blicken nära motorhuven","Att titta långt fram och anpassa farten i god tid","Att köra så fort som möjligt","Att bromsa sent"], ratt:1, forklaring:"Genom att titta långt fram ser du hinder tidigt och kan rulla av farten i stället för att tvärbromsa – mjukare och snålare." },
+  { id:"sp12", area:"sparsam", fraga:"Vad är lämpligt vid ett långt stopp, t.ex. vid en järnvägsbom?", alt:["Låta motorn gå på tomgång","Stänga av motorn","Gasa lätt","Köra fram och tillbaka"], ratt:1, forklaring:"Vid längre stopp är det både miljövänligt och bränslesnålt att stänga av motorn i stället för att låta den gå på tomgång." }
+];
+const qById = id => QUESTIONS.find(q => q.id === id);
+
+/* ============================================================
+   LAGRING (localStorage)
+   ============================================================ */
+const LS_KEY = "korkort_v1";
+function defaultDB(){ return { svar:{}, bokmarken:[], prov:[], installningar:{ tema:null } }; }
+let DB = loadDB();
+function loadDB(){
+  try { const d = JSON.parse(localStorage.getItem(LS_KEY)); if(d && typeof d==="object"){ return Object.assign(defaultDB(), d); } }
+  catch(e){}
+  return defaultDB();
+}
+function saveDB(){ try { localStorage.setItem(LS_KEY, JSON.stringify(DB)); } catch(e){} }
+
+function recordAnswer(qid, correct){
+  const prev = DB.svar[qid] || { forsok:0 };
+  DB.svar[qid] = { ratt: !!correct, forsok: prev.forsok + 1 };
+  saveDB();
+}
+function isBookmarked(qid){ return DB.bokmarken.includes(qid); }
+function toggleBookmark(qid){
+  const i = DB.bokmarken.indexOf(qid);
+  if(i>=0){ DB.bokmarken.splice(i,1); toast("Bokmärke borttaget"); }
+  else { DB.bokmarken.push(qid); toast("Fråga bokmärkt ⭐"); }
+  saveDB();
+}
+
+/* ============================================================
+   STATISTIK-HJÄLP
+   ============================================================ */
+function areaQuestions(areaId){ return QUESTIONS.filter(q => q.area === areaId); }
+function areaStats(areaId){
+  const qs = areaQuestions(areaId);
+  let answered=0, correct=0;
+  qs.forEach(q => { const s = DB.svar[q.id]; if(s){ answered++; if(s.ratt) correct++; } });
+  return { total: qs.length, answered, correct, pct: qs.length ? Math.round(correct/qs.length*100) : 0 };
+}
+function overallStats(){
+  let answered=0, correct=0;
+  QUESTIONS.forEach(q => { const s = DB.svar[q.id]; if(s){ answered++; if(s.ratt) correct++; } });
+  const total = QUESTIONS.length;
+  return { total, answered, correct, pct: total ? Math.round(correct/total*100) : 0 };
+}
+
+/* ============================================================
+   SMÅ HJÄLPFUNKTIONER
+   ============================================================ */
+function shuffle(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function el(html){ const t=document.createElement("template"); t.innerHTML=html.trim(); return t.content.firstElementChild; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>t.classList.remove("show"), 1800);
+}
+function ringSvg(pct, size, stroke, track, fill){
+  const r = (size - stroke)/2, c = 2*Math.PI*r, off = c*(1 - pct/100);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${track}" stroke-width="${stroke}"/>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${fill}" stroke-width="${stroke}"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/>
+  </svg>`;
+}
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+const VIEWS = ["hem","lektioner","vagmarken","ova","prov","bokmarken","statistik"];
+function showView(name){
+  if(!VIEWS.includes(name)) name = "hem";
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-"+name).classList.add("active");
+  document.querySelectorAll("[data-nav]").forEach(b => b.classList.toggle("active", b.dataset.nav === name));
+  if(location.hash.slice(1) !== name) history.replaceState(null,"","#"+name);
+  window.scrollTo(0,0);
+  render(name);
+}
+function render(name){
+  ({ hem:renderHome, lektioner:renderLessons, vagmarken:renderSigns,
+     ova:renderPracticeMenu, prov:renderExamStart, bokmarken:renderBookmarks,
+     statistik:renderStats }[name] || renderHome)();
+}
+
+/* ============================================================
+   STARTSIDA
+   ============================================================ */
+function renderHome(){
+  const o = overallStats();
+  const c = document.getElementById("home-content");
+  c.innerHTML = `
+    <div class="hero">
+      <div class="hero-info">
+        <h1>Klara teoriprovet med självförtroende</h1>
+        <p>Lektioner, vägmärken och realistiska övningsfrågor – samlat på ett ställe. Öva område för område och kör skarpa prov med tidtagning precis som hos Trafikverket.</p>
+        <div class="cta">
+          <button class="btn btn-primary btn-lg" onclick="startPractice('mixed')">✏️ Börja öva</button>
+          <button class="btn btn-ghost btn-lg" onclick="showView('prov')">⏱️ Kör ett prov</button>
+        </div>
+      </div>
+      <div class="hero-ring">
+        <div class="ring" style="color:#fff">
+          ${ringSvg(o.pct, 168, 14, "rgba(255,255,255,.25)", "#fff")}
+          <div class="ring-label">
+            <span class="ring-num">${o.pct}%</span>
+            <span class="ring-sub">rätt totalt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="n">${QUESTIONS.length}</div><div class="l">övningsfrågor</div></div>
+      <div class="stat"><div class="n">${o.answered}</div><div class="l">besvarade</div></div>
+      <div class="stat"><div class="n">${DB.bokmarken.length}</div><div class="l">bokmärken</div></div>
+      <div class="stat"><div class="n">${DB.prov.length}</div><div class="l">gjorda prov</div></div>
+    </div>
+
+    <div class="section-head" style="margin-top:26px">
+      <h2>Teoriområden</h2>
+      <span class="muted">Tryck på ett område för lektioner och övning</span>
+    </div>
+    <div class="grid grid-areas" id="areaCards"></div>`;
+
+  const grid = c.querySelector("#areaCards");
+  AREAS.forEach(a => {
+    const s = areaStats(a.id);
+    const card = el(`
+      <button class="area-card" aria-label="${esc(a.namn)}">
+        <span class="area-ic" style="background:${a.farg}">${a.ikon}</span>
+        <h3>${esc(a.namn)}</h3>
+        <p class="desc">${esc(a.beskrivning)}</p>
+        <div>
+          <div class="barline"><span>${s.correct}/${s.total} rätt</span><span>${s.pct}%</span></div>
+          <div class="bar ${s.pct>=80?'ok':''}"><span style="width:${s.pct}%"></span></div>
+        </div>
+      </button>`);
+    card.addEventListener("click", () => openArea(a.id));
+    grid.appendChild(card);
+  });
+}
+function openArea(areaId){ pendingLessonArea = areaId; showView("lektioner"); }
+
+/* ============================================================
+   LEKTIONER
+   ============================================================ */
+let pendingLessonArea = null;
+function renderLessons(){
+  const c = document.getElementById("lessons-content");
+  const areaId = pendingLessonArea; pendingLessonArea = null;
+  if(areaId){ renderLessonArea(areaId, c); return; }
+  c.innerHTML = `
+    <div class="section-head"><h1>Lektioner</h1><span class="muted">Välj ett område</span></div>
+    <div class="grid grid-areas" id="lessonAreas"></div>`;
+  const g = c.querySelector("#lessonAreas");
+  AREAS.forEach(a => {
+    const n = (LESSONS[a.id]||[]).length;
+    const card = el(`
+      <button class="area-card" aria-label="${esc(a.namn)}">
+        <span class="area-ic" style="background:${a.farg}">${a.ikon}</span>
+        <h3>${esc(a.namn)}</h3>
+        <p class="desc">${esc(a.beskrivning)}</p>
+        <span class="chip">${n} lektion${n===1?'':'er'}</span>
+      </button>`);
+    card.addEventListener("click", () => renderLessonArea(a.id, c));
+    g.appendChild(card);
+  });
+}
+function renderLessonArea(areaId, c){
+  const a = areaById(areaId);
+  const lessons = LESSONS[areaId] || [];
+  c.innerHTML = `
+    <button class="back-link" onclick="pendingLessonArea=null;renderLessons()">← Alla områden</button>
+    <div class="section-head">
+      <h1><span style="margin-right:8px">${a.ikon}</span>${esc(a.namn)}</h1>
+      <button class="btn btn-primary" onclick="startPractice('area','${a.id}')">✏️ Öva på ${esc(a.namn.toLowerCase())}</button>
+    </div>
+    <div id="lessonList"></div>`;
+  const list = c.querySelector("#lessonList");
+  if(!lessons.length){ list.innerHTML = `<div class="empty">Lektioner för detta område kommer snart.</div>`; }
+  lessons.forEach(L => {
+    list.appendChild(el(`
+      <article class="lesson">
+        <div class="lesson-head">
+          <div class="lesson-illu">${L.illustration || a.ikon}</div>
+          <div><h3 style="margin:0">${esc(L.titel)}</h3></div>
+        </div>
+        <div class="lesson-body">${L.html}</div>
+      </article>`));
+  });
+}
+
+/* ============================================================
+   VÄGMÄRKEN
+   ============================================================ */
+const SIGN_CATS = [
+  { key:"varning",   namn:"Varningsmärken",    ikon:"⚠️", txt:"Gul triangel med röd ram. Varnar för faror längre fram." },
+  { key:"forbud",    namn:"Förbudsmärken",     ikon:"⛔", txt:"Oftast rund med röd ram. Talar om vad som är förbjudet." },
+  { key:"pabud",     namn:"Påbudsmärken",      ikon:"➡️", txt:"Blå och runda. Talar om vad du måste göra." },
+  { key:"anvisning", namn:"Anvisningsmärken",  ikon:"ℹ️", txt:"Oftast blå och fyrkantiga. Ger upplysning eller anvisning." },
+  { key:"vajning",   namn:"Väjningspliktsmärken", ikon:"🔻", txt:"Reglerar väjningsplikt och stopp i korsningar." }
+];
+function renderSigns(){
+  const c = document.getElementById("signs-content");
+  c.innerHTML = `
+    <div class="section-head"><h1>Vägmärken</h1><span class="muted">${SIGNS.length} vanliga märken</span></div>
+    <p class="lead">Att känna igen vägmärken är en av de viktigaste delarna i teoriprovet. Här är de vanligaste, grupperade efter typ.</p>
+    <div id="signCats"></div>`;
+  const wrap = c.querySelector("#signCats");
+  SIGN_CATS.forEach(cat => {
+    const items = SIGNS.filter(s => s.kategori === cat.key);
+    if(!items.length) return;
+    const sec = el(`<section class="sign-cat">
+      <h3>${cat.ikon} ${cat.namn}</h3>
+      <p class="muted" style="margin-top:-6px">${esc(cat.txt)}</p>
+      <div class="sign-grid"></div></section>`);
+    const grid = sec.querySelector(".sign-grid");
+    items.forEach(s => grid.appendChild(el(`
+      <div class="sign-card">
+        <div class="svgbox" role="img" aria-label="${esc(s.namn)}">${s.svg}</div>
+        <div class="nm">${esc(s.namn)}</div>
+        <div class="ds">${esc(s.beskrivning)}</div>
+      </div>`)));
+    wrap.appendChild(sec);
+  });
+}
+
+/* ============================================================
+   ÖVNINGSLÄGE
+   ============================================================ */
+let session = null;
+function renderPracticeMenu(){
+  const c = document.getElementById("practice-content");
+  c.innerHTML = `
+    <div class="section-head"><h1>Öva</h1><span class="muted">Få förklaring direkt efter varje svar</span></div>
+    <div class="card" style="margin-bottom:18px">
+      <h3 style="margin-top:0">Snabbstart</h3>
+      <div class="mode-grid">
+        <button class="btn btn-primary btn-lg" onclick="startPractice('mixed')">🔀 Blandade frågor</button>
+        <button class="btn btn-ghost btn-lg" onclick="startPractice('bookmarks')">⭐ Mina bokmärken (${DB.bokmarken.length})</button>
+        <button class="btn btn-ghost btn-lg" onclick="startPractice('weak')">🎯 Öva mina svaga områden</button>
+      </div>
+    </div>
+    <h3>Öva per område</h3>
+    <div class="grid grid-areas" id="practiceAreas"></div>`;
+  const g = c.querySelector("#practiceAreas");
+  AREAS.forEach(a => {
+    const s = areaStats(a.id);
+    const card = el(`
+      <button class="area-card" aria-label="Öva ${esc(a.namn)}">
+        <span class="area-ic" style="background:${a.farg}">${a.ikon}</span>
+        <h3>${esc(a.namn)}</h3>
+        <p class="desc">${s.total} frågor</p>
+        <div><div class="bar ${s.pct>=80?'ok':''}"><span style="width:${s.pct}%"></span></div></div>
+      </button>`);
+    card.addEventListener("click", () => startPractice("area", a.id));
+    g.appendChild(card);
+  });
+}
+function startPractice(mode, areaId){
+  let pool = [];
+  if(mode === "mixed") pool = shuffle(QUESTIONS.map(q=>q.id));
+  else if(mode === "area") pool = shuffle(areaQuestions(areaId).map(q=>q.id));
+  else if(mode === "bookmarks") pool = shuffle(DB.bokmarken.slice());
+  else if(mode === "weak"){
+    const weak = AREAS.filter(a => areaStats(a.id).pct < 80).map(a=>a.id);
+    const wanted = weak.length ? weak : AREAS.map(a=>a.id);
+    pool = shuffle(QUESTIONS.filter(q => wanted.includes(q.area)).map(q=>q.id));
+  }
+  if(!pool.length){
+    showView("ova");
+    toast(mode==="bookmarks" ? "Du har inga bokmärken ännu" : "Inga frågor hittades");
+    return;
+  }
+  session = { pool, idx:0, answered:false, correct:0, done:0, mode, areaId };
+  showView("ova");
+  renderPracticeQuestion();
+}
+function renderPracticeQuestion(){
+  const c = document.getElementById("practice-content");
+  const q = qById(session.pool[session.idx]);
+  const total = session.pool.length;
+  const pct = Math.round(session.idx/total*100);
+  c.innerHTML = `
+    <button class="back-link" onclick="session=null;renderPracticeMenu()">← Avsluta övning</button>
+    <div class="q-card">
+      <div class="q-top">
+        <div class="q-progress">
+          <div class="barline"><span>${areaById(q.area).namn}</span><span class="q-count">${session.idx+1} / ${total}</span></div>
+          <div class="bar"><span style="width:${pct}%"></span></div>
+        </div>
+        <button class="bookmark-btn ${isBookmarked(q.id)?'on':''}" id="bm" aria-label="Bokmärk fråga" title="Bokmärk fråga">${isBookmarked(q.id)?'★':'☆'}</button>
+      </div>
+      ${q.signId && signById(q.signId) ? `<div class="q-sign" role="img" aria-label="Vägmärke">${signById(q.signId).svg}</div>` : ""}
+      <div class="q-text">${esc(q.fraga)}</div>
+      <div class="options" id="opts"></div>
+      <div id="fb"></div>
+      <div class="q-actions" id="acts"></div>
+    </div>`;
+  c.querySelector("#bm").addEventListener("click", e => {
+    toggleBookmark(q.id);
+    const on = isBookmarked(q.id);
+    e.currentTarget.classList.toggle("on", on);
+    e.currentTarget.textContent = on ? "★" : "☆";
+  });
+  const opts = c.querySelector("#opts");
+  q.alt.forEach((text, i) => {
+    const b = el(`<button class="opt"><span class="key">${"ABCD"[i]}</span><span>${esc(text)}</span></button>`);
+    b.addEventListener("click", () => answerPractice(i));
+    opts.appendChild(b);
+  });
+}
+function answerPractice(choice){
+  const q = qById(session.pool[session.idx]);
+  const correct = choice === q.ratt;
+  session.answered = true; session.done++;
+  if(correct) session.correct++;
+  recordAnswer(q.id, correct);
+
+  const opts = document.querySelectorAll("#opts .opt");
+  opts.forEach((b,i) => {
+    b.setAttribute("disabled","");
+    if(i === q.ratt) b.classList.add("correct");
+    else if(i === choice) b.classList.add("wrong");
+  });
+  document.getElementById("fb").innerHTML = `
+    <div class="feedback ${correct?'ok':'no'}">
+      <div class="ft">${correct?'✓ Rätt!':'✗ Fel'}</div>
+      <div>${esc(q.forklaring)}</div>
+    </div>`;
+  const last = session.idx >= session.pool.length-1;
+  const acts = document.getElementById("acts");
+  acts.innerHTML = last
+    ? `<button class="btn btn-primary btn-lg" id="next">Visa resultat</button>`
+    : `<button class="btn btn-primary btn-lg" id="next">Nästa fråga →</button>`;
+  acts.querySelector("#next").addEventListener("click", () => {
+    if(last){ renderPracticeSummary(); }
+    else { session.idx++; session.answered=false; renderPracticeQuestion(); }
+  });
+  acts.querySelector("#next").focus();
+}
+function renderPracticeSummary(){
+  const c = document.getElementById("practice-content");
+  const pct = Math.round(session.correct/session.done*100);
+  const good = pct >= 80;
+  c.innerHTML = `
+    <div class="q-card" style="text-align:center">
+      <div class="ring" style="margin:10px auto 18px;color:${good?'var(--success)':'var(--primary)'}">
+        ${ringSvg(pct,160,14,"var(--surface-2)", good?'var(--success)':'var(--primary)')}
+        <div class="ring-label"><span class="ring-num">${pct}%</span><span class="ring-sub muted">rätt</span></div>
+      </div>
+      <h1>${good?'Snyggt jobbat! 🎉':'Bra övat! 💪'}</h1>
+      <p class="lead" style="margin:0 auto 22px">Du svarade rätt på <b>${session.correct} av ${session.done}</b> frågor.</p>
+      <div class="q-actions">
+        <button class="btn btn-primary btn-lg" onclick="restartPractice()">🔁 Öva igen</button>
+        <button class="btn btn-ghost btn-lg" onclick="session=null;renderPracticeMenu()">Till övningsmenyn</button>
+      </div>
+    </div>`;
+}
+function restartPractice(){ startPractice(session.mode, session.areaId); }
+
+/* ============================================================
+   PROVLÄGE
+   ============================================================ */
+const EXAM_COUNT = 65, EXAM_PASS = 52, EXAM_MIN = 50;
+let exam = null;
+function buildExamPool(){
+  // proportionell fördelning över områden, fyll upp till EXAM_COUNT
+  let pool = [];
+  const perArea = AREAS.map(a => {
+    const qs = areaQuestions(a.id);
+    return { id:a.id, qs, take: Math.round(qs.length / QUESTIONS.length * EXAM_COUNT) };
+  });
+  perArea.forEach(p => { pool = pool.concat(shuffle(p.qs.map(q=>q.id)).slice(0, p.take)); });
+  // justera till exakt EXAM_COUNT
+  const rest = shuffle(QUESTIONS.map(q=>q.id).filter(id => !pool.includes(id)));
+  while(pool.length < EXAM_COUNT && rest.length) pool.push(rest.pop());
+  pool = shuffle(pool).slice(0, Math.min(EXAM_COUNT, QUESTIONS.length));
+  return pool;
+}
+function renderExamStart(){
+  if(exam && exam.running){ renderExamQuestion(); return; }
+  const c = document.getElementById("exam-content");
+  const last = DB.prov[DB.prov.length-1];
+  c.innerHTML = `
+    <div class="section-head"><h1>Provläge</h1></div>
+    <div class="card" style="max-width:640px">
+      <h2 style="margin-top:0">⏱️ Simulera teoriprovet</h2>
+      <p class="muted">Provet efterliknar Trafikverkets kunskapsprov:</p>
+      <div class="factgrid">
+        <div class="f"><b>${EXAM_COUNT}</b><span>frågor</span></div>
+        <div class="f"><b>${EXAM_PASS}</b><span>rätt för godkänt</span></div>
+        <div class="f"><b>${EXAM_MIN} min</b><span>tidsgräns</span></div>
+      </div>
+      <ul>
+        <li>Du får <b>ingen</b> facit förrän provet är inlämnat.</li>
+        <li>Du kan hoppa fram och tillbaka mellan frågorna.</li>
+        <li>Provet rättas automatiskt och sparas i din statistik.</li>
+      </ul>
+      <button class="btn btn-primary btn-lg btn-block" onclick="startExam()">Starta provet</button>
+      ${last ? `<p class="muted" style="text-align:center;margin:14px 0 0">Senaste prov: <b>${last.antalRatt}/${last.total}</b> – ${last.godkand?'Godkänt ✓':'Underkänt'}</p>` : ""}
+    </div>`;
+}
+function startExam(){
+  const pool = buildExamPool();
+  exam = { pool, idx:0, answers:{}, remaining: EXAM_MIN*60, running:true, timerId:null };
+  exam.timerId = setInterval(tickExam, 1000);
+  renderExamQuestion();
+}
+function tickExam(){
+  if(!exam || !exam.running) return;
+  exam.remaining--;
+  const t = document.getElementById("timer");
+  if(t){ t.textContent = fmtTime(exam.remaining); t.parentElement.classList.toggle("low", exam.remaining <= 300); }
+  if(exam.remaining <= 0){ finishExam(true); }
+}
+function fmtTime(s){ const m = Math.floor(s/60), ss = s%60; return m+":"+String(ss).padStart(2,"0"); }
+function renderExamQuestion(){
+  const c = document.getElementById("exam-content");
+  const q = qById(exam.pool[exam.idx]);
+  const answeredCount = Object.keys(exam.answers).length;
+  c.innerHTML = `
+    <div class="exam-bar">
+      <div class="timer ${exam.remaining<=300?'low':''}">⏱️ <span id="timer">${fmtTime(exam.remaining)}</span></div>
+      <div class="grow muted" style="text-align:center">Besvarade: <b>${answeredCount}/${exam.pool.length}</b></div>
+      <button class="btn btn-primary btn-sm" onclick="confirmFinish()">Lämna in</button>
+    </div>
+    <div class="q-card">
+      <div class="q-top">
+        <div class="q-count">Fråga ${exam.idx+1} av ${exam.pool.length}</div>
+      </div>
+      ${q.signId && signById(q.signId) ? `<div class="q-sign" role="img" aria-label="Vägmärke">${signById(q.signId).svg}</div>` : ""}
+      <div class="q-text">${esc(q.fraga)}</div>
+      <div class="options" id="opts"></div>
+      <div class="q-actions">
+        <button class="btn btn-ghost" id="prev" ${exam.idx===0?'disabled':''}>← Föregående</button>
+        <button class="btn btn-primary" id="next">${exam.idx===exam.pool.length-1?'Till sista':'Nästa →'}</button>
+      </div>
+      <h4 style="margin-top:26px">Snabbnavigering</h4>
+      <div class="navigator" id="nav"></div>
+    </div>`;
+  const opts = c.querySelector("#opts");
+  q.alt.forEach((text,i) => {
+    const chosen = exam.answers[q.id] === i;
+    const b = el(`<button class="opt ${chosen?'chosen':''}"><span class="key">${"ABCD"[i]}</span><span>${esc(text)}</span></button>`);
+    b.addEventListener("click", () => {
+      exam.answers[q.id] = i;
+      if(exam.idx < exam.pool.length-1){ exam.idx++; renderExamQuestion(); }
+      else renderExamQuestion();
+    });
+    opts.appendChild(b);
+  });
+  c.querySelector("#prev").addEventListener("click", () => { if(exam.idx>0){ exam.idx--; renderExamQuestion(); } });
+  c.querySelector("#next").addEventListener("click", () => { if(exam.idx<exam.pool.length-1){ exam.idx++; renderExamQuestion(); } });
+  const nav = c.querySelector("#nav");
+  exam.pool.forEach((id,i) => {
+    const b = el(`<button class="${exam.answers[id]!==undefined?'answered':''} ${i===exam.idx?'current':''}">${i+1}</button>`);
+    b.addEventListener("click", () => { exam.idx=i; renderExamQuestion(); });
+    nav.appendChild(b);
+  });
+}
+function confirmFinish(){
+  const left = exam.pool.length - Object.keys(exam.answers).length;
+  if(left > 0 && !confirm(`Du har ${left} obesvarad${left===1?'':'e'} fråg${left===1?'a':'or'}. Vill du lämna in ändå?`)) return;
+  finishExam(false);
+}
+function finishExam(timeUp){
+  clearInterval(exam.timerId); exam.running = false;
+  let correct = 0;
+  const perArea = {};
+  AREAS.forEach(a => perArea[a.id] = { r:0, t:0 });
+  exam.pool.forEach(id => {
+    const q = qById(id);
+    perArea[q.area].t++;
+    if(exam.answers[id] === q.ratt){ correct++; perArea[q.area].r++; }
+  });
+  const passed = correct >= EXAM_PASS;
+  const rec = { datum: Date.now(), antalRatt: correct, total: exam.pool.length, godkand: passed, perOmrade: perArea, tidUte: timeUp };
+  DB.prov.push(rec);
+  // logga svaren även i statistiken
+  exam.pool.forEach(id => { if(exam.answers[id]!==undefined) recordAnswer(id, exam.answers[id]===qById(id).ratt); });
+  saveDB();
+  renderExamResult(rec, timeUp);
+}
+function renderExamResult(rec, timeUp){
+  const c = document.getElementById("exam-content");
+  const passed = rec.godkand;
+  c.innerHTML = `
+    <div class="result-banner ${passed?'pass':'fail'}">
+      <h2 style="margin:0">${passed?'Godkänt! 🎉':'Inte godkänt ännu'}</h2>
+      <div class="big">${rec.antalRatt}/${rec.total}</div>
+      <p style="margin:0;opacity:.95">${passed
+        ? 'Du klarade gränsen på '+EXAM_PASS+' rätt. Fortsätt så!'
+        : 'Du behöver '+EXAM_PASS+' rätt för att bli godkänd. '+(timeUp?'Tiden tog slut. ':'')+'Du fixar det!'}</p>
+    </div>
+    <div class="card" style="margin-bottom:18px">
+      <h3 style="margin-top:0">Resultat per område</h3>
+      <table class="tbl"><tbody id="paBody"></tbody></table>
+    </div>
+    <div class="q-actions" style="max-width:760px;margin:0 auto 22px">
+      <button class="btn btn-primary btn-lg" onclick="startExam()">🔁 Gör ett nytt prov</button>
+      <button class="btn btn-ghost btn-lg" onclick="showExamReview()">🔎 Gå igenom svaren</button>
+    </div>
+    <div id="reviewArea"></div>`;
+  const body = c.querySelector("#paBody");
+  AREAS.forEach(a => {
+    const p = rec.perOmrade[a.id]; if(!p || !p.t) return;
+    const pct = Math.round(p.r/p.t*100);
+    body.appendChild(el(`<tr>
+      <td>${a.ikon} ${esc(a.namn)}</td>
+      <td style="white-space:nowrap">${p.r}/${p.t}</td>
+      <td><div class="bar ${pct>=80?'ok':''}"><span style="width:${pct}%"></span></div></td>
+    </tr>`));
+  });
+}
+function showExamReview(){
+  const wrap = document.getElementById("reviewArea");
+  wrap.innerHTML = `<h3>Genomgång av frågorna</h3>`;
+  exam.pool.forEach((id,i) => {
+    const q = qById(id);
+    const chosen = exam.answers[id];
+    const ok = chosen === q.ratt;
+    wrap.appendChild(el(`
+      <div class="review-item ${ok?'r-ok':'r-no'}">
+        <div style="display:flex;justify-content:space-between;gap:10px">
+          <b>Fråga ${i+1}</b><span class="chip area">${esc(areaById(q.area).namn)}</span>
+        </div>
+        ${q.signId && signById(q.signId) ? `<div class="q-sign" style="margin:8px 0">${signById(q.signId).svg}</div>` : ""}
+        <p style="font-weight:700;margin:8px 0">${esc(q.fraga)}</p>
+        <p style="margin:4px 0">Ditt svar: <b style="color:${ok?'var(--success)':'var(--danger)'}">${chosen!==undefined?esc(q.alt[chosen]):'(inget svar)'}</b></p>
+        ${ok?'':`<p style="margin:4px 0">Rätt svar: <b style="color:var(--success)">${esc(q.alt[q.ratt])}</b></p>`}
+        <div class="feedback ${ok?'ok':'no'}" style="margin-top:10px">${esc(q.forklaring)}</div>
+      </div>`));
+  });
+  wrap.scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+/* ============================================================
+   BOKMÄRKEN
+   ============================================================ */
+function renderBookmarks(){
+  const c = document.getElementById("bookmarks-content");
+  const ids = DB.bokmarken.filter(id => qById(id));
+  if(!ids.length){
+    c.innerHTML = `<div class="section-head"><h1>Bokmärken</h1></div>
+      <div class="empty"><span class="big-ic">⭐</span>Du har inga bokmärkta frågor ännu.<br>Tryck på stjärnan vid en fråga när du övar för att spara den här.</div>`;
+    return;
+  }
+  c.innerHTML = `
+    <div class="section-head">
+      <h1>Bokmärken</h1>
+      <button class="btn btn-primary" onclick="startPractice('bookmarks')">✏️ Öva bokmärken</button>
+    </div>
+    <p class="muted">${ids.length} sparade fråg${ids.length===1?'a':'or'}. Tryck för att visa svaret.</p>
+    <div id="bmList"></div>`;
+  const list = c.querySelector("#bmList");
+  ids.forEach(id => {
+    const q = qById(id);
+    const item = el(`
+      <div class="review-item">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+          <span class="chip area">${esc(areaById(q.area).namn)}</span>
+          <button class="btn btn-sm btn-danger" data-rm>Ta bort ⭐</button>
+        </div>
+        ${q.signId && signById(q.signId) ? `<div class="q-sign" style="margin:8px 0">${signById(q.signId).svg}</div>` : ""}
+        <p style="font-weight:700;margin:8px 0 0">${esc(q.fraga)}</p>
+        <button class="btn btn-ghost btn-sm" data-show style="margin-top:10px">Visa svar</button>
+        <div data-ans style="display:none">
+          <div class="feedback ok" style="margin-top:10px"><b>Rätt svar:</b> ${esc(q.alt[q.ratt])}<br>${esc(q.forklaring)}</div>
+        </div>
+      </div>`);
+    item.querySelector("[data-show]").addEventListener("click", e => {
+      const a = item.querySelector("[data-ans]");
+      const open = a.style.display === "block";
+      a.style.display = open ? "none" : "block";
+      e.currentTarget.textContent = open ? "Visa svar" : "Dölj svar";
+    });
+    item.querySelector("[data-rm]").addEventListener("click", () => { toggleBookmark(id); renderBookmarks(); });
+    list.appendChild(item);
+  });
+}
+
+/* ============================================================
+   STATISTIK
+   ============================================================ */
+function renderStats(){
+  const c = document.getElementById("stats-content");
+  const o = overallStats();
+  c.innerHTML = `
+    <div class="section-head"><h1>Din statistik</h1></div>
+    <div class="card" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+      <div class="ring" style="color:var(--primary)">
+        ${ringSvg(o.pct,150,13,"var(--surface-2)","var(--primary)")}
+        <div class="ring-label"><span class="ring-num" style="font-size:1.9rem">${o.pct}%</span><span class="ring-sub muted">rätt</span></div>
+      </div>
+      <div style="flex:1;min-width:200px">
+        <h3 style="margin-top:0">Helhet</h3>
+        <p class="muted" style="margin:0">Du har besvarat <b>${o.answered}</b> av <b>${o.total}</b> frågor och svarat rätt på <b>${o.correct}</b> av dem.</p>
+        <div class="bar" style="margin-top:12px"><span style="width:${o.total?Math.round(o.answered/o.total*100):0}%"></span></div>
+        <div class="barline" style="margin-top:5px"><span>Genomgånget</span><span>${o.total?Math.round(o.answered/o.total*100):0}%</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px">
+      <h3 style="margin-top:0">Per område</h3>
+      <table class="tbl"><thead><tr><th>Område</th><th>Rätt</th><th>Behärskning</th></tr></thead><tbody id="saBody"></tbody></table>
+    </div>
+
+    <div class="card" style="margin-bottom:18px">
+      <h3 style="margin-top:0">Provhistorik</h3>
+      <div id="provList"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Inställningar</h3>
+      <p class="muted">All data sparas lokalt i din webbläsare.</p>
+      <button class="btn btn-danger" onclick="resetAll()">🗑️ Nollställ all framgång</button>
+    </div>`;
+  const sa = c.querySelector("#saBody");
+  AREAS.forEach(a => {
+    const s = areaStats(a.id);
+    sa.appendChild(el(`<tr>
+      <td>${a.ikon} ${esc(a.namn)}</td>
+      <td style="white-space:nowrap">${s.correct}/${s.total}</td>
+      <td><div class="bar ${s.pct>=80?'ok':''}"><span style="width:${s.pct}%"></span></div></td>
+    </tr>`));
+  });
+  const pl = c.querySelector("#provList");
+  if(!DB.prov.length){ pl.innerHTML = `<p class="muted">Du har inte gjort något prov ännu.</p>`; }
+  else {
+    DB.prov.slice().reverse().forEach(p => {
+      const d = new Date(p.datum);
+      pl.appendChild(el(`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span>${d.toLocaleDateString("sv-SE")} ${d.toLocaleTimeString("sv-SE",{hour:'2-digit',minute:'2-digit'})}</span>
+        <span><b>${p.antalRatt}/${p.total}</b> <span class="chip" style="background:${p.godkand?'var(--success-soft)':'var(--danger-soft)'};color:${p.godkand?'var(--success)':'var(--danger)'};border:0">${p.godkand?'Godkänt':'Underkänt'}</span></span>
+      </div>`));
+    });
+  }
+}
+function resetAll(){
+  if(!confirm("Vill du nollställa all din framgång, bokmärken och provhistorik? Detta går inte att ångra.")) return;
+  DB = defaultDB(); saveDB(); toast("All data nollställd"); applyTheme(); renderStats();
+}
+
+/* ============================================================
+   TEMA
+   ============================================================ */
+function applyTheme(){
+  const t = DB.installningar.tema;
+  if(t) document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+  updateThemeBtn();
+}
+function updateThemeBtn(){
+  const dark = isDark();
+  const b = document.getElementById("themeBtn");
+  if(b) b.textContent = dark ? "☀️" : "🌙";
+}
+function isDark(){
+  const t = DB.installningar.tema;
+  if(t) return t === "dark";
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+function toggleTheme(){
+  DB.installningar.tema = isDark() ? "light" : "dark";
+  saveDB(); applyTheme();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  applyTheme();
+  document.querySelectorAll("[data-nav]").forEach(b => b.addEventListener("click", () => showView(b.dataset.nav)));
+  document.getElementById("themeBtn").addEventListener("click", toggleTheme);
+  window.addEventListener("hashchange", () => showView(location.hash.slice(1) || "hem"));
+  showView(location.hash.slice(1) || "hem");
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
